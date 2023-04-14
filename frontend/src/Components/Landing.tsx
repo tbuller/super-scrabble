@@ -21,7 +21,7 @@ const Landing: React.FC<LandingProps> = ({ navigate }) => {
   return (
     <div>
     <h1>Welcome to Super Scrabble!</h1>
-    <button onClick={handleNewPlayerPopup}>Register new player</button>
+    <button onClick={handleNewPlayerPopup}>{popup ? "Close new player window" : "Create new player"}</button>
     {/* <button onClick={() => setPopup(2)}>Use exisitng player</button> */}
     {popup && <NewPlayer />}
     </div>
