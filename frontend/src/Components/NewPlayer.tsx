@@ -13,7 +13,7 @@ const NewPlayer = () => {
   const [confirmedPassword, setConfirmedPassword] = useState("");
   const [notMatching, setNotMatching] = useState(false);
 
-  const addUser = () => {
+  const createUser = () => {
     if (confirmedPassword !== password) {
       setNotMatching(true);
     } else {
@@ -58,7 +58,7 @@ const NewPlayer = () => {
     <label className="new-player-label">Please confirm your password:</label>
     <input className="new-player-password" type="password" onChange={handleConfirmedPassword} />
     </div>
-    <button onClick={addUser}>Add player</button>
+    <button onClick={createUser}>Add player</button>
     </div>
   )
 }

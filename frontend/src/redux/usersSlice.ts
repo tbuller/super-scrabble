@@ -10,7 +10,7 @@ type UsersState = {
   users: User[];
 }
 
-const initialState = {
+const initialState: UsersState = {
   users: []
 }
 
