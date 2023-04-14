@@ -5,6 +5,8 @@ const path = require("path");
 const logger = require("morgan");
 const fileUpload = require("express-fileupload");
 
+const UsersRouter = require("./routes/users");
+
 const app = express();
 app.use(fileUpload());
 app.use(bodyParser.json({ limit: '50mb' }));
@@ -16,5 +18,7 @@ app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use("/users", UsersRouter);
 
 module.exports = app;
