@@ -1,6 +1,8 @@
 import React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUsers } from '../redux/usersSlice';
 import NewPlayer from './NewPlayer';
 import ExistingPlayer from './ExistingPlayer';
 import '../styling/Landing.scss';
@@ -11,7 +13,17 @@ interface LandingProps  {
 
 const Landing: React.FC<LandingProps> = ({ navigate }) => {
 
+  const dispatch = useDispatch();
+
   const [popup, setPopup] = useState(false);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/users")
+      .then(response => response.json())
+      .then(data => {
+        dispatch(setUsers(data.users));
+      })
+  }, [])
 
   const handleNewPlayerPopup = () => {
     setPopup(!popup);

@@ -10,6 +10,15 @@ const UsersController = {
         res.status(200).json({ message: "OK", user: user });
       }
     })
+  },
+  List: (req, res, next) => {
+    User.find({}, (err, users) => {
+      if (err) {
+        res.status(400).json({ message: "server error", err: err });
+      } else {
+        res.status(200).json({ message: "OK", users: users });
+      }
+    })
   }
 }
 

@@ -1,16 +1,21 @@
 import React, { ChangeEvent } from 'react';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../redux/usersSlice';
 import '../styling/NewPlayer.scss';
 
 const NewPlayer = () => {
 
+  const dispatch = useDispatch();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
+  const [notMatching, setNotMatching] = useState(false);
 
   const addUser = () => {
     if (confirmedPassword !== password) {
-      return;
+      setNotMatching(true);
     } else {
       fetch("http://localhost:8080/users", {
         method: "post",
@@ -20,7 +25,9 @@ const NewPlayer = () => {
         body: JSON.stringify({ username: username, password: password })
       })
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => {
+          dispatch(addUser(data.user));
+        })
     }
   }
 
