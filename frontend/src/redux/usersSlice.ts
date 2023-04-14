@@ -29,3 +29,7 @@ const usersSlice = createSlice({
 
 export default usersSlice.reducer;
 export const { setUsers, addUser } = usersSlice.actions;
+
+export type RootState = {
+  users: UsersState;
+}

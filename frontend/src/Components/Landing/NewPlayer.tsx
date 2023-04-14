@@ -1,8 +1,8 @@
 import React, { ChangeEvent } from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addUser } from '../redux/usersSlice';
-import '../styling/NewPlayer.scss';
+import { addUser } from '../../redux/usersSlice';
+import '../../styling/NewPlayer.scss';
 
 const NewPlayer = () => {
 
@@ -59,6 +59,7 @@ const NewPlayer = () => {
     <input className="new-player-password" type="password" onChange={handleConfirmedPassword} />
     </div>
     <button onClick={createUser}>Add player</button>
+    {notMatching && <div className="non-matching-passwords-prompt">Make sure you are entering the same password in both fields</div>}
     </div>
   )
 }
