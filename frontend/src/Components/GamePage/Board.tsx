@@ -8,8 +8,18 @@ const Board = () => {
 
   return (
     <div className="square-container">
-    <Square squareType="normal" />
-    </div>
+    {
+      Array.from(Array(15).keys()).map((rowIndex) => (
+        <div className="square-row" key={`row-${rowIndex}`}>
+          {
+            Array.from(Array(15).keys()).map((colIndex) => (
+              <Square key={`${rowIndex}-${colIndex}`} squareType="normal" />
+            ))
+          }
+        </div>
+      ))
+    }
+  </div>
   )
 }
 
