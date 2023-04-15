@@ -17,6 +17,7 @@ const Landing: React.FC<LandingProps> = ({ navigate }) => {
 
   const dispatch = useDispatch();
   const users = useSelector((state: RootState) => state.users.users);
+  const currentPlayers = useSelector((state: RootState) => state.users.currentPlayers);
 
   const [popup, setPopup] = useState(false);
 
@@ -45,6 +46,7 @@ const Landing: React.FC<LandingProps> = ({ navigate }) => {
     {/* <button onClick={() => setPopup(2)}>Use exisitng player</button> */}
     <Players />
     {popup && <NewPlayer />}
+    {currentPlayers.length >= 2 && <button className="start-game-button" onClick={() => navigate("/play")}>start game</button>}
     </div>
   )
 }
