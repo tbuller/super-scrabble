@@ -1,6 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+export type Letter = {
+  letter: string;
+}
+
+type LettersState = {
+  letters: Letter[];
+}
+
+const initialState: LettersState = {
   letters: []
 }
 
@@ -9,10 +17,14 @@ const lettersSlice = createSlice({
   initialState,
   reducers: {
     setLetters: (state, action) => {
-      state.letters = action.payload
+      state.letters = action.payload;
     }
   }
 })
 
 export default lettersSlice.reducer;
 export const { setLetters } = lettersSlice.actions;
+
+export type RootState = {
+  letters: LettersState;
+}
