@@ -28,6 +28,7 @@ const NewPlayer = () => {
         .then(data => {
           dispatch(addUser(data.user));
         })
+        
     }
   }
 

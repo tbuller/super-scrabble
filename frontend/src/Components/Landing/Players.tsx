@@ -15,9 +15,14 @@ const Players = () => {
   }
 
   return (
-    <div className="player-icon-container">
-    {users.map(u => 
-      <div className={`player-icon${currentPlayers.includes(u) ? '-selected' : ''}`} key={u._id} onClick={() => addPlayer(u)}>{u.username[0]}</div>
+    <div className="players-icons-container">
+    {users.map(u =>
+      <div className="player-icon-container">
+      <div className={`player-icon${currentPlayers.includes(u) ? ' selected' : ''}`} key={u._id} onClick={() => addPlayer(u)}>
+        {u.username[0].toUpperCase()}
+        <div className="popup">{u.username}</div>
+      </div>
+      </div>
     )}  
     </div>
   )

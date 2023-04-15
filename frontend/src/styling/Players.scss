@@ -1,4 +1,4 @@
-.player-icon-container {
+.players-icons-container {
   margin-top: 1em;
   display: flex;
 }
@@ -13,7 +13,24 @@
     cursor: pointer;
   }
 
-  &.player-icon-selected {
+  &.selected {
     background-color: green !important;
   }
+}
+
+.popup {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 1;
+  left: 1.7%;
+  top: 13%;
+  transform: translate(-50%, 10px);
+}
+
+.player-icon:hover .popup {
+  display: block;
 }
