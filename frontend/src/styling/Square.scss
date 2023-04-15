@@ -2,8 +2,11 @@
   border-style: solid;
   border-color: black;
   border-width: 0.14em;
-  height: 3.2em;
-  width: 3.2em;
+  height: 2.5em;
+  width: 2.5em;
+  padding-top: 1.3em;
+  padding-left: 1.2em;
+  font-weight: bold;
 }
 
 .normal-square {
@@ -18,4 +21,19 @@
 .double-word-square {
   @extend .square;
   background-color: blue;
+}
+
+.triple-letter-square {
+  @extend .square;
+  background-color: aqua;
+}
+
+.double-letter-square {
+  @extend .square;
+  background-color: orange;
+}
+
+.middle-square {
+  @extend .square;
+  background-color: black;
 }
