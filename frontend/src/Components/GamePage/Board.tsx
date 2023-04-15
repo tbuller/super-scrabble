@@ -13,7 +13,7 @@ const Board = () => {
         <div className="square-row" key={`row-${rowIndex}`}>
           {
             Array.from(Array(15).keys()).map((colIndex) => (
-              <Square key={`${rowIndex}-${colIndex}`} squareType="normal" />
+              <Square key={`${rowIndex}-${colIndex}`} index={colIndex * 15 + rowIndex} />
             ))
           }
         </div>

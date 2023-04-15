@@ -5,3 +5,17 @@
   height: 3.2em;
   width: 3.2em;
 }
+
+.normal-square {
+  @extend .square;
+}
+
+.triple-word-square {
+  @extend .square;
+  background-color: red;
+}
+
+.double-word-square {
+  @extend .square;
+  background-color: blue;
+}
