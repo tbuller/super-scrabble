@@ -1,0 +1,15 @@
+.player-icon-container {
+  margin-top: 1em;
+  display: flex;
+}
+
+.player-icon {
+  background-color: red;
+  margin-left: 0.5em;
+  padding: 0.2em;
+  border-radius: 0.2em;
+  
+  &:hover {
+    cursor: pointer;
+  }
+}
