@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/usersSlice';
 import Board from './Board';
+import LetterCollection from '../Letters/LetterCollection';
 import '../../styling/GamePage.scss';
 
 interface GamePageProps {
@@ -25,6 +26,12 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
     <div className="board-container">
     <Board />
     </div>
+    
+    {currentPlayers.map(p => 
+      <div>
+        <LetterCollection />
+      </div>
+      )}
     </div>
   )
 }
