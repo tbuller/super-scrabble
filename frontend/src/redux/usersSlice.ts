@@ -1,17 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type User = {
-  id: string;
+export type User = {
+  _id: string;
   username: string;
   password: string;
 }
 
 type UsersState = {
   users: User[];
+  currentPlayers: User[];
 }
 
 const initialState: UsersState = {
-  users: []
+  users: [],
+  currentPlayers: []
 }
 
 const usersSlice = createSlice({
@@ -23,12 +25,15 @@ const usersSlice = createSlice({
     },
     addUser: (state, action: PayloadAction<User>) => {
       state.users.push(action.payload);
+    },
+    addCurrentPlayer: (state, action: PayloadAction<User>) => {
+      state.currentPlayers.push(action.payload);
     }
   }
 })
 
 export default usersSlice.reducer;
-export const { setUsers, addUser } = usersSlice.actions;
+export const { setUsers, addUser, addCurrentPlayer } = usersSlice.actions;
 
 export type RootState = {
   users: UsersState;

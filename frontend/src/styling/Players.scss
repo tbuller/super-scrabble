@@ -12,4 +12,8 @@
   &:hover {
     cursor: pointer;
   }
+
+  &.player-icon-selected {
+    background-color: green !important;
+  }
 }
