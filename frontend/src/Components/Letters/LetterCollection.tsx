@@ -4,11 +4,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setLetters, decrementLetterCount } from '../../redux/lettersSlice';
 import { RootStateLetters } from '../../redux/lettersSlice';
 import { addLetter } from '../../redux/usersSlice';
-import { RootStateUsers } from '../../redux/usersSlice';
+import { RootStateUsers, User } from '../../redux/usersSlice';
 import Letter from './Letter';
 import letterRepo from './letterRepo';
 
 const LetterCollection = () => {
+
+  type Letter = {
+    letter: string;
+    value: number;
+    count: number;
+  }
 
   const dispatch = useDispatch();
   const letters = useSelector((state: RootStateLetters) => state.letters.letters);
@@ -23,21 +29,25 @@ const LetterCollection = () => {
 
   useEffect(() => {
     if (letters && currentPlayers && !initialLettersAdded) {
-      currentPlayers.map(p => {
-        const numTimesToRun = 7; 
-
-        for (let i = 0; i < numTimesToRun; i++) {
-          handleAddLetter(p._id);
-        }
-      })
+      addInitialLetters(letters, currentPlayers);
       setInitialLettersAdded(true);
     } else {
       console.log("letters and or players aren't ready yet");
     }
   }, [])
 
-  const handleAddLetter = (userId: string) => {
-    const letterToAdd = getRandomLetter();
+  const addInitialLetters = (letters: Letter[], currentPlayers: User[]) => {
+    currentPlayers.map(p => {
+      const numTimesToRun = 7;
+
+      for (let i = 0; i < numTimesToRun; i++) {
+        handleAddLetter(p._id, letters);
+      }
+    })
+  }
+
+  const handleAddLetter = (userId: string, letters: Letter[]) => {
+    const letterToAdd = getRandomLetter(letters);
 
     dispatch(addLetter({ userId: userId, letter: letterToAdd }));
 
@@ -46,7 +56,7 @@ const LetterCollection = () => {
     console.log(letterToAdd);
   }
 
-  const getRandomLetter = () => {
+  const getRandomLetter = (letters: Letter[]) => {
 
     const totalCount = letters.reduce((total, item) => total + item.count, 0);
 
@@ -70,7 +80,7 @@ const LetterCollection = () => {
   return (
     <div>
     <button onClick={showLetters}>show letters</button> 
-    <button onClick={() => handleAddLetter(currentPlayers[0]._id)}>random</button> 
+    <button onClick={() => handleAddLetter(currentPlayers[0]._id, letters)}>random</button> 
     </div>
   )
 }

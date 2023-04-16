@@ -42,7 +42,7 @@ const usersSlice = createSlice({
     },
     addLetter: (state, action) => {
       const relevantUser = state.currentPlayers.find(p => p._id === action.payload.userId);
-      
+
       if (relevantUser) {
         if (!relevantUser.letters) {
           relevantUser.letters = [];
