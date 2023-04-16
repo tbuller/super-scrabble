@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setInitialTurn } from '../../redux/usersSlice';
+import { setInitialTurn, setNextTurn } from '../../redux/usersSlice';
 import { RootStateUsers } from '../../redux/usersSlice';
 import Board from './Board';
 import LetterCollection from '../Letters/LetterCollection';
@@ -15,10 +15,21 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
 
   const dispatch = useDispatch();
   const currentPlayers = useSelector((state: RootStateUsers) => state.users.currentPlayers);
+  const currentTurn = useSelector((state: RootStateUsers) => state.users.currentTurn);
 
   useEffect(() => {
     dispatch(setInitialTurn(currentPlayers[0]));
-  }, [currentPlayers])
+  }, [currentPlayers.length])
+
+  const handleNextTurn = () => {
+    const currentTurnIndex = currentPlayers.findIndex(p => p._id === currentTurn?._id);
+    
+    if (currentTurnIndex < currentPlayers.length - 1) {
+      dispatch(setNextTurn(currentPlayers[currentTurnIndex + 1]));
+    } else {
+      dispatch(setNextTurn(currentPlayers[0]));
+    }
+  }
 
   const showPlayers = () => {
     console.log(currentPlayers);
@@ -27,6 +38,7 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
   return (
     <div>
     <div>Game page</div>
+    <button onClick={handleNextTurn}>Next turn</button>
     <button onClick={showPlayers}>show current players</button>
     <div className="board-container">
     <Board />

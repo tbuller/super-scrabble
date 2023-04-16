@@ -35,7 +35,7 @@ const usersSlice = createSlice({
       state.currentTurn = action.payload;
     },
     setNextTurn: (state, action) => {
-
+      state.currentTurn = action.payload;
     }
   }
 })
