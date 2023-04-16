@@ -28,7 +28,7 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
     </div>
     
     {currentPlayers.map(p => 
-      <div>
+      <div key={p._id}>
         <LetterCollection />
       </div>
       )}

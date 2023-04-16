@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export type Letter = {
   letter: string;
+  value: number;
+  count: number;
 }
 
 type LettersState = {
