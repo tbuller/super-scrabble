@@ -1,14 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { User, RootState } from '../../redux/usersSlice';
+import { User, RootStateUsers } from '../../redux/usersSlice';
 import { addCurrentPlayer } from '../../redux/usersSlice';
 import '../../styling/Players.scss';
 
 const Players = () => {
 
   const dispatch = useDispatch();
-  const users = useSelector((state: RootState) => state.users.users);
-  const currentPlayers = useSelector((state: RootState) => state.users.currentPlayers);
+  const users = useSelector((state: RootStateUsers) => state.users.users);
+  const currentPlayers = useSelector((state: RootStateUsers) => state.users.currentPlayers);
 
   const addPlayer = (player: User) => {
     dispatch(addCurrentPlayer(player));

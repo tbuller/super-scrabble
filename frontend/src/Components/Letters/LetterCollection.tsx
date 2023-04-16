@@ -1,15 +1,17 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setLetters } from '../../redux/lettersSlice';
-import { RootState } from '../../redux/lettersSlice';
+import { setLetters, decrementLetterCount } from '../../redux/lettersSlice';
+import { RootStateLetters } from '../../redux/lettersSlice';
+import { RootStateUsers } from '../../redux/usersSlice';
 import Letter from './Letter';
 import letterRepo from './letterRepo';
 
 const LetterCollection = () => {
 
   const dispatch = useDispatch();
-  const letters = useSelector((state: RootState) => state.letters.letters);
+  const letters = useSelector((state: RootStateLetters) => state.letters.letters);
+  const currentTurn = useSelector((state: RootStateUsers) => state.users.currentTurn); 
 
   const [myLetters, setMyLetters] = useState([]);
 
@@ -27,8 +29,9 @@ const LetterCollection = () => {
       randomIndex -= letters[i].count;
 
       if (randomIndex <= 0) {
-        letters[i].count -= 1;
+        dispatch(decrementLetterCount(letters[i].letter))
         console.log(letters[i].letter);
+        break;
         // return letters[i].letter;
       }
     }
@@ -36,11 +39,13 @@ const LetterCollection = () => {
 
   const showLetters = () => {
     console.log(letters.length);
+    console.log(currentTurn);
   }
 
   return (
     <div>
-    <button onClick={showLetters}>show letters</button>  
+    <button onClick={showLetters}>show letters</button> 
+    <button onClick={getRandomLetter}>random</button> 
     </div>
   )
 }

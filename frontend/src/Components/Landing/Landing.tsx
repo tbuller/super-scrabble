@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUsers } from '../../redux/usersSlice';
-import { RootState } from '../../redux/usersSlice';
+import { RootStateUsers } from '../../redux/usersSlice';
 import NewPlayer from './NewPlayer';
 import ExistingPlayer from './ExistingPlayer';
 import Players from './Players';
@@ -16,8 +16,8 @@ interface LandingProps  {
 const Landing: React.FC<LandingProps> = ({ navigate }) => {
 
   const dispatch = useDispatch();
-  const users = useSelector((state: RootState) => state.users.users);
-  const currentPlayers = useSelector((state: RootState) => state.users.currentPlayers);
+  const users = useSelector((state: RootStateUsers) => state.users.users);
+  const currentPlayers = useSelector((state: RootStateUsers) => state.users.currentPlayers);
 
   const [popup, setPopup] = useState(false);
 

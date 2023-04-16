@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type Letter = {
   letter: string;
@@ -18,15 +18,21 @@ const lettersSlice = createSlice({
   name: "letters",
   initialState,
   reducers: {
-    setLetters: (state, action) => {
+    setLetters: (state, action: PayloadAction<Letter[]>) => {
       state.letters = action.payload;
+    },
+    decrementLetterCount: (state, action: PayloadAction<string>) => {
+      const letter = state.letters.find(item => item.letter === action.payload);
+      if (letter) {
+        letter.count -= 1;
+      }
     }
   }
 })
 
 export default lettersSlice.reducer;
-export const { setLetters } = lettersSlice.actions;
+export const { setLetters, decrementLetterCount } = lettersSlice.actions;
 
-export type RootState = {
+export type RootStateLetters = {
   letters: LettersState;
 }

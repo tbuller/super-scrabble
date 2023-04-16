@@ -9,11 +9,13 @@ export type User = {
 type UsersState = {
   users: User[];
   currentPlayers: User[];
+  currentTurn: User | null;
 }
 
 const initialState: UsersState = {
   users: [],
-  currentPlayers: []
+  currentPlayers: [],
+  currentTurn: null
 }
 
 const usersSlice = createSlice({
@@ -28,13 +30,19 @@ const usersSlice = createSlice({
     },
     addCurrentPlayer: (state, action: PayloadAction<User>) => {
       state.currentPlayers.push(action.payload);
+    },
+    setInitialTurn: (state, action) => {
+      state.currentTurn = action.payload;
+    },
+    setNextTurn: (state, action) => {
+
     }
   }
 })
 
 export default usersSlice.reducer;
-export const { setUsers, addUser, addCurrentPlayer } = usersSlice.actions;
+export const { setUsers, addUser, addCurrentPlayer, setInitialTurn, setNextTurn } = usersSlice.actions;
 
-export type RootState = {
+export type RootStateUsers = {
   users: UsersState;
 }
