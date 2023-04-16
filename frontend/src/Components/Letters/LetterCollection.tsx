@@ -15,18 +15,31 @@ const LetterCollection = () => {
   const currentPlayers = useSelector((state: RootStateUsers) => state.users.currentPlayers);
   const currentTurn = useSelector((state: RootStateUsers) => state.users.currentTurn); 
 
-  const [myLetters, setMyLetters] = useState([]);
-
   useEffect(() => {
     dispatch(setLetters(letterRepo));
   }, [])
 
-  const handleAddLetter = () => {
-    const letterToAdd = getRandomLetter()
+  useEffect(() => {
+    if (letters && currentPlayers) {
+      currentPlayers.map(p => {
+        const numTimesToRun = 7; 
 
-    dispatch(addLetter({ userId: currentTurn?._id, letter: letterToAdd }))
+        for (let i = 0; i < numTimesToRun; i++) {
+          handleAddLetter(p._id);
+        }
+      })
+    } else {
+      console.log("letters and or players aren't ready yet");
+    }
+  }, [])
+
+  const handleAddLetter = (userId: string) => {
+    const letterToAdd = getRandomLetter();
+
+    dispatch(addLetter({ userId: userId, letter: letterToAdd }));
 
     console.log(currentPlayers[0].letters);
+    console.log(currentPlayers[1].letters);
   }
 
   const getRandomLetter = () => {
@@ -53,7 +66,7 @@ const LetterCollection = () => {
   return (
     <div>
     <button onClick={showLetters}>show letters</button> 
-    <button onClick={handleAddLetter}>random</button> 
+    <button onClick={() => handleAddLetter(currentPlayers[0]._id)}>random</button> 
     </div>
   )
 }
