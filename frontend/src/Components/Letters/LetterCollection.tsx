@@ -27,24 +27,14 @@ const LetterCollection = () => {
     dispatch(setLetters(letterRepo));
   }, [])
 
-  useEffect(() => {
-    if (letters && currentPlayers && !initialLettersAdded) {
-      addInitialLetters(letters, currentPlayers);
-      setInitialLettersAdded(true);
-    } else {
-      console.log("letters and or players aren't ready yet");
-    }
-  }, [])
-
-  const addInitialLetters = (letters: Letter[], currentPlayers: User[]) => {
-    currentPlayers.map(p => {
-      const numTimesToRun = 7;
-
-      for (let i = 0; i < numTimesToRun; i++) {
-        handleAddLetter(p._id, letters);
-      }
-    })
-  }
+  // useEffect(() => {
+  //   if (letters && currentPlayers && !initialLettersAdded) {
+  //     addInitialLetters(letters, currentPlayers);
+  //     setInitialLettersAdded(true);
+  //   } else {
+  //     console.log("letters and or players aren't ready yet");
+  //   }
+  // }, [])
 
   const handleAddLetter = (userId: string, letters: Letter[]) => {
     const letterToAdd = getRandomLetter(letters);
