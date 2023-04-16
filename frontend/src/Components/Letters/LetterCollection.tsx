@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLetters, decrementLetterCount } from '../../redux/lettersSlice';
 import { RootStateLetters } from '../../redux/lettersSlice';
+import { addLetter } from '../../redux/usersSlice';
 import { RootStateUsers } from '../../redux/usersSlice';
 import Letter from './Letter';
 import letterRepo from './letterRepo';
@@ -11,6 +12,7 @@ const LetterCollection = () => {
 
   const dispatch = useDispatch();
   const letters = useSelector((state: RootStateLetters) => state.letters.letters);
+  const currentPlayers = useSelector((state: RootStateUsers) => state.users.currentPlayers);
   const currentTurn = useSelector((state: RootStateUsers) => state.users.currentTurn); 
 
   const [myLetters, setMyLetters] = useState([]);
@@ -18,6 +20,14 @@ const LetterCollection = () => {
   useEffect(() => {
     dispatch(setLetters(letterRepo));
   }, [])
+
+  const handleAddLetter = () => {
+    const letterToAdd = getRandomLetter()
+
+    dispatch(addLetter({ userId: currentTurn?._id, letter: letterToAdd }))
+
+    console.log(currentPlayers[0].letters);
+  }
 
   const getRandomLetter = () => {
 
@@ -30,9 +40,7 @@ const LetterCollection = () => {
 
       if (randomIndex <= 0) {
         dispatch(decrementLetterCount(letters[i].letter))
-        console.log(letters[i].letter);
-        break;
-        // return letters[i].letter;
+        return letters[i].letter;
       }
     }
   }
@@ -45,7 +53,7 @@ const LetterCollection = () => {
   return (
     <div>
     <button onClick={showLetters}>show letters</button> 
-    <button onClick={getRandomLetter}>random</button> 
+    <button onClick={handleAddLetter}>random</button> 
     </div>
   )
 }

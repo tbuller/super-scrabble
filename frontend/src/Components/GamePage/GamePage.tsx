@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setInitialTurn, setNextTurn } from '../../redux/usersSlice';
+import { setInitialTurn, setNextTurn, addLetter } from '../../redux/usersSlice';
 import { RootStateUsers } from '../../redux/usersSlice';
 import Board from './Board';
 import CurrentPlayers from './CurrentPlayers';

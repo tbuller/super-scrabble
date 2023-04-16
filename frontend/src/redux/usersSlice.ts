@@ -1,9 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Letter } from './lettersSlice';
 
 export type User = {
   _id: string;
   username: string;
   password: string;
+  letters: Letter[];
+  currentScore: number;
 }
 
 type UsersState = {
@@ -36,12 +39,22 @@ const usersSlice = createSlice({
     },
     setNextTurn: (state, action) => {
       state.currentTurn = action.payload;
+    },
+    addLetter: (state, action) => {
+      const relevantUser = state.currentPlayers.find(p => p._id === action.payload.userId);
+      
+      if (relevantUser) {
+        if (!relevantUser.letters) {
+          relevantUser.letters = [];
+        }
+        relevantUser.letters.push(action.payload.letter);
+      }
     }
   }
 })
 
 export default usersSlice.reducer;
-export const { setUsers, addUser, addCurrentPlayer, setInitialTurn, setNextTurn } = usersSlice.actions;
+export const { setUsers, addUser, addCurrentPlayer, setInitialTurn, setNextTurn, addLetter } = usersSlice.actions;
 
 export type RootStateUsers = {
   users: UsersState;
