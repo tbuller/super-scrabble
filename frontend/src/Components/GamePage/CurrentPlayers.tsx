@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { RootStateUsers } from '../../redux/usersSlice';
+import { AiOutlineArrowDown } from 'react-icons/ai';
 import '../../styling/CurrentPlayers.scss';
 
 const CurrentPlayers = () => {
@@ -10,9 +11,12 @@ const CurrentPlayers = () => {
 
   return (
     <div className="current-players-container">
-      {currentPlayers.map(p => 
+      {currentPlayers.map(p =>
+        <div className="individual-current-player-conatainer">
+        {p._id === currentTurn?._id && <AiOutlineArrowDown className="turn-indicator-arrow" />} 
         <div className="current-player-icon" key={p._id}>{p.username[0].toUpperCase()}</div>
-        )}
+        </div>
+        )}  
     </div>
   )
 }
