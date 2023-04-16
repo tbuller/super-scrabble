@@ -14,10 +14,6 @@ const Players = () => {
     dispatch(addCurrentPlayer(player));
   }
 
-  // const showPlayers = () => {
-  //   console.log(currentPlayers);
-  // }
-
   return (
     <div className="players-icons-container">
     {users.map(u =>

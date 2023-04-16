@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setInitialTurn, setNextTurn } from '../../redux/usersSlice';
 import { RootStateUsers } from '../../redux/usersSlice';
 import Board from './Board';
+import CurrentPlayers from './CurrentPlayers';
 import LetterCollection from '../Letters/LetterCollection';
 import '../../styling/GamePage.scss';
 
@@ -40,6 +41,9 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
     <div>Game page</div>
     <button onClick={handleNextTurn}>Next turn</button>
     <button onClick={showPlayers}>show current players</button>
+    <div className="players-coontainer">
+    <CurrentPlayers />
+    </div>
     <div className="board-container">
     <Board />
     </div>

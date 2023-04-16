@@ -1,0 +1,23 @@
+.current-players-container {
+  display: flex;
+  justify-content: center;
+}
+
+.current-player-icon {
+  background-color: red;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  height: 2em;
+  width: 2em;
+  padding-left: 1.4em;
+  padding-top: 0.9em;
+  border-radius: 0.5em;
+  
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.selected {
+    background-color: green !important;
+  }
+}
