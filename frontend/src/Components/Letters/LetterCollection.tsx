@@ -23,13 +23,15 @@ const LetterCollection = () => {
 
   const [initialLettersAdded, setInitialLettersAdded] = useState(false);
   const [initialLetters, setInitialLetters] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     dispatch(setLetters(letterRepo));
+    setLoading(false);
   }, [])
 
   useEffect(() => {
-    if (letters && currentPlayers && !initialLettersAdded) {
+    if (letters.length > 0 && currentPlayers && !initialLettersAdded) {
       const numLettersToAdd = currentPlayers.length * 7;
       let newInitialLetters: string[] = [];
       
@@ -43,7 +45,7 @@ const LetterCollection = () => {
     } else {
       console.log("letters and or players aren't ready yet");
     }
-  }, [])
+  }, [loading])
 
   const handleAddLetter = (userId: string, letters: Letter[]) => {
     const letterToAdd = getRandomLetter(letters);
@@ -56,17 +58,17 @@ const LetterCollection = () => {
   }
 
   const getRandomLetter = (letters: Letter[]) => {
-    console.log('getRandomLetter called');
-    console.log('Letters:', letters);
+    // console.log('getRandomLetter called');
+    // console.log('Letters:', letters);
 
     const totalCount = letters.reduce((total, item) => total + item.count, 0);
-    console.log('Total count:', totalCount);
+    // console.log('Total count:', totalCount);
 
     let randomIndex = Math.floor(Math.random() * totalCount) + 1;
 
     for (let i = 0; i < letters.length; i++) {
       randomIndex -= letters[i].count;
-      console.log(`Random index: ${randomIndex}, Count: ${letters[i].count}, Letter: ${letters[i].letter}`);
+      // console.log(`Random index: ${randomIndex}, Count: ${letters[i].count}, Letter: ${letters[i].letter}`);
 
       if (randomIndex <= 0) {
         dispatch(decrementLetterCount(letters[i].letter))
