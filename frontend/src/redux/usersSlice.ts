@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getCommentRange } from 'typescript';
 import { Letter } from './lettersSlice';
-import { getRandomLetter } from '../Components/Letters/LetterCollection';
 
 export type User = {
   _id: string;
@@ -42,11 +41,6 @@ const usersSlice = createSlice({
     setNextTurn: (state, action) => {
       state.currentTurn = action.payload;
     },
-    addInitialLetters: (state, action) => {
-      state.currentPlayers.forEach(p => {
-        const letterToAdd = getRandomLetter();
-      })
-    }
     addLetter: (state, action) => {
       const relevantUser = state.currentPlayers.find(p => p._id === action.payload.userId);
 

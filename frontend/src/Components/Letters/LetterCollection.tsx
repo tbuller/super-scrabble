@@ -22,19 +22,25 @@ const LetterCollection = () => {
   const currentTurn = useSelector((state: RootStateUsers) => state.users.currentTurn); 
 
   const [initialLettersAdded, setInitialLettersAdded] = useState(false);
+  const [initialLetters, setInitialLetters] = useState<string[]>([]);
 
   useEffect(() => {
     dispatch(setLetters(letterRepo));
   }, [])
 
-  // useEffect(() => {
-  //   if (letters && currentPlayers && !initialLettersAdded) {
-  //     addInitialLetters(letters, currentPlayers);
-  //     setInitialLettersAdded(true);
-  //   } else {
-  //     console.log("letters and or players aren't ready yet");
-  //   }
-  // }, [])
+  useEffect(() => {
+    if (letters && currentPlayers && !initialLettersAdded) {
+      const numLettersToAdd = currentPlayers.length * 7;
+      
+      for (let i = 0; i < numLettersToAdd; i++) {
+        const letterToAdd = getRandomLetter(letters);
+
+        setInitialLetters([...initialLetters, letterToAdd || "error"]);
+      }
+    } else {
+      console.log("letters and or players aren't ready yet");
+    }
+  }, [])
 
   const handleAddLetter = (userId: string, letters: Letter[]) => {
     const letterToAdd = getRandomLetter(letters);
