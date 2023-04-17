@@ -35,7 +35,7 @@ const LetterCollection = () => {
       
       for (let i = 0; i < numLettersToAdd; i++) {
         const letterToAdd = getRandomLetter(letters);
-        console.log(letterToAdd);
+        // console.log(letterToAdd);
         newInitialLetters.push(letterToAdd);
       }
 
@@ -56,13 +56,17 @@ const LetterCollection = () => {
   }
 
   const getRandomLetter = (letters: Letter[]) => {
+    console.log('getRandomLetter called');
+    console.log('Letters:', letters);
 
     const totalCount = letters.reduce((total, item) => total + item.count, 0);
+    console.log('Total count:', totalCount);
 
     let randomIndex = Math.floor(Math.random() * totalCount) + 1;
 
     for (let i = 0; i < letters.length; i++) {
       randomIndex -= letters[i].count;
+      console.log(`Random index: ${randomIndex}, Count: ${letters[i].count}, Letter: ${letters[i].letter}`);
 
       if (randomIndex <= 0) {
         dispatch(decrementLetterCount(letters[i].letter))
