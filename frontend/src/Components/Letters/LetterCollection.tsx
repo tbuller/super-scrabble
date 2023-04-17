@@ -31,12 +31,15 @@ const LetterCollection = () => {
   useEffect(() => {
     if (letters && currentPlayers && !initialLettersAdded) {
       const numLettersToAdd = currentPlayers.length * 7;
+      let newInitialLetters: string[] = [];
       
       for (let i = 0; i < numLettersToAdd; i++) {
         const letterToAdd = getRandomLetter(letters);
-
-        setInitialLetters([...initialLetters, letterToAdd || "error"]);
+        console.log(letterToAdd);
+        newInitialLetters.push(letterToAdd);
       }
+
+      setInitialLetters(newInitialLetters);
     } else {
       console.log("letters and or players aren't ready yet");
     }
@@ -66,11 +69,18 @@ const LetterCollection = () => {
         return letters[i].letter;
       }
     }
+
+    const remainingLetters = letters.filter(letter => letter.count > 0);
+    const randomLetterIndex = Math.floor(Math.random() * remainingLetters.length);
+    const randomLetter = remainingLetters[randomLetterIndex]?.letter;
+    dispatch(decrementLetterCount(randomLetter));
+    return randomLetter;
   }
 
   const showLetters = () => {
     console.log(letters.length);
     console.log(currentTurn);
+    console.log(initialLetters);
   }
 
   return (
