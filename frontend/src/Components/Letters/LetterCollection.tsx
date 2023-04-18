@@ -110,6 +110,15 @@ const LetterCollection = () => {
 
   return (
     <div>
+    <div>
+    {currentPlayers && currentPlayers.map(p => {
+      return p.letters?.map(l =>
+        <div key={Math.random()}>
+        <Letter letter={l} />
+        </div>
+        )
+    })}
+    </div>
     <button onClick={showLetters}>show letters</button> 
     <button onClick={() => handleAddLetter(currentPlayers[0]._id, letters)}>random</button> 
     </div>

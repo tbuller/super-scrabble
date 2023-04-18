@@ -16,7 +16,10 @@ const Letter = ({ letter }: LetterProps) => {
   const [letterInfo, setLetterInfo] = useState({});
 
   useEffect(() => {
+    console.log(letter);
+    console.log(letters);
     const associatedInfo = letters.find(l => l.letter === letter);
+    console.log(associatedInfo);
     setLetterInfo(associatedInfo || {});
   }, [])
 
