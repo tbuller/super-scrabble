@@ -7,6 +7,7 @@ import { addLetter, addInitialPlayerLetters } from '../../redux/usersSlice';
 import { RootStateUsers, User } from '../../redux/usersSlice';
 import Letter from './Letter';
 import letterRepo from './letterRepo';
+import '../../styling/LetterCollection.scss';
 
 const LetterCollection = () => {
 
@@ -108,25 +109,32 @@ const LetterCollection = () => {
     {currentPlayers[3] && console.log(currentPlayers[3].letters)};
   }
 
-  return (
-    <div>
-    <div>
-    {currentPlayers && currentPlayers.map(p => {
-      return p.letters?.map(l =>
-        <div key={Math.random()}>
-          {/* {(() => {
-            console.log(l);
-            return null;
-          })()} */}
-        <Letter letter={l} />
+  
+return (
+  <div>
+  <div>
+  <div>
+  {currentPlayers &&
+    currentPlayers.map((p) => {
+      return (
+        <div className="individual-player-letters-container" key={p._id}>
+          <div className="username-letter-container">{p.username}</div>
+          {p.letters?.map((l) => (
+            <div key={Math.random()}>
+              <Letter letter={l} />
+            </div>
+          ))}
         </div>
-        )
+      );
     })}
+      </div>
     </div>
-    <button onClick={showLetters}>show letters</button> 
-    <button onClick={() => handleAddLetter(currentPlayers[0]._id, letters)}>random</button> 
-    </div>
-  )
+    <button onClick={showLetters}>show letters</button>
+    <button onClick={() => handleAddLetter(currentPlayers[0]._id, letters)}>
+      random
+    </button>
+  </div>
+);
 }
 
 export default LetterCollection;
