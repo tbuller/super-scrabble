@@ -49,8 +49,14 @@ const LetterCollection = () => {
   useEffect(() => {
     if (initialLetters.length > 0) {
       const numPlayers = currentPlayers.length;
-      currentPlayers.forEach(p => {
-        
+
+      currentPlayers.forEach((p, i) => {
+        const start = i * 7;
+        const end = start + 7;
+        const playerInitialLetters = initialLetters.slice(start, end);
+        playerInitialLetters.forEach(l => {
+          // handleAddLetter(p._id, l)
+        })
       })
     }
   }, [])
