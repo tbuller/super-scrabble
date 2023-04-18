@@ -51,16 +51,18 @@ const LetterCollection = () => {
   useEffect(() => {
     if (initialLetters.length > 0 && initialLettersLoaded && !initialLettersAdded) {
       setInitialLettersAdded(true);
-      console.log("conditions satisfied");
-      const numPlayers = currentPlayers.length;
 
       currentPlayers.forEach((p, i) => {
         const start = i * 7;
         const end = start + 7;
         const playerInitialLetters = initialLetters.slice(start, end);
-        playerInitialLetters.forEach(l => {
+        playerInitialLetters.forEach((l, index) => {
           dispatch(addInitialPlayerLetter({ userId: p._id, letter: l }));
           dispatch(decrementLetterCount(l));
+          if (index === playerInitialLetters.length - 1) {
+            dispatch(addInitialPlayerLetter({ userId: p._id, letter: l }));
+            dispatch(decrementLetterCount(l));
+          }
         })
       })
     }
@@ -106,6 +108,8 @@ const LetterCollection = () => {
     console.log(initialLetters);
     console.log(currentPlayers[0].letters);
     console.log(currentPlayers[1].letters);
+    {currentPlayers[2] && console.log(currentPlayers[2].letters)};
+    {currentPlayers[3] && console.log(currentPlayers[3].letters)};
   }
 
   return (
