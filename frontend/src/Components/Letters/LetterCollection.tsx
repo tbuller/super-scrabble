@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLetters, decrementLetterCount } from '../../redux/lettersSlice';
 import { RootStateLetters } from '../../redux/lettersSlice';
-import { addLetter, addInitialPlayerLetter } from '../../redux/usersSlice';
+import { addLetter, addInitialPlayerLetters } from '../../redux/usersSlice';
 import { RootStateUsers, User } from '../../redux/usersSlice';
 import Letter from './Letter';
 import letterRepo from './letterRepo';
@@ -56,14 +56,8 @@ const LetterCollection = () => {
         const start = i * 7;
         const end = start + 7;
         const playerInitialLetters = initialLetters.slice(start, end);
-        playerInitialLetters.forEach((l, index) => {
-          dispatch(addInitialPlayerLetter({ userId: p._id, letter: l }));
-          dispatch(decrementLetterCount(l));
-          if (index === playerInitialLetters.length - 1) {
-            dispatch(addInitialPlayerLetter({ userId: p._id, letter: l }));
-            dispatch(decrementLetterCount(l));
-          }
-        })
+        console.log(playerInitialLetters);
+        dispatch(addInitialPlayerLetters({ userId: p._id, letters: playerInitialLetters }))
       })
     }
   }, [initialLettersLoaded])
@@ -103,7 +97,9 @@ const LetterCollection = () => {
   }
 
   const showLetters = () => {
-    console.log(letters.length);
+    let totalCount = 0;
+    letters.forEach(l => totalCount += l.count);
+    console.log(totalCount);
     console.log(currentTurn);
     console.log(initialLetters);
     console.log(currentPlayers[0].letters);
