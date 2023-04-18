@@ -41,14 +41,14 @@ const usersSlice = createSlice({
     setNextTurn: (state, action) => {
       state.currentTurn = action.payload;
     },
-    addInitialPlayerLetters: (state, action) => {
+    addInitialPlayerLetter: (state, action) => {
       const relevantUser = state.currentPlayers.find(p => p._id === action.payload.userId);
 
       if (relevantUser) {
         if (!relevantUser.letters) {
           relevantUser.letters = [];
         } else {
-          relevantUser.letters.push(action.payload.playersInitialLetters);
+          relevantUser.letters.push(action.payload.letter);
         }
       }
     },
@@ -66,7 +66,7 @@ const usersSlice = createSlice({
 })
 
 export default usersSlice.reducer;
-export const { setUsers, addUser, addCurrentPlayer, setInitialTurn, setNextTurn, addInitialPlayerLetters, addLetter } = usersSlice.actions;
+export const { setUsers, addUser, addCurrentPlayer, setInitialTurn, setNextTurn, addInitialPlayerLetter, addLetter } = usersSlice.actions;
 
 export type RootStateUsers = {
   users: UsersState;

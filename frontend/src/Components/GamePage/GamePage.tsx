@@ -47,12 +47,9 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
     <div className="board-container">
     <Board />
     </div>
-    
-    {currentPlayers.map(p => 
-      <div key={p._id}>
-        <LetterCollection />
-      </div>
-      )}
+    <div>
+    <LetterCollection />
+    </div>
     </div>
   )
 }

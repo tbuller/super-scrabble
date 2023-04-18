@@ -1,9 +1,9 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLetters, decrementLetterCount } from '../../redux/lettersSlice';
 import { RootStateLetters } from '../../redux/lettersSlice';
-import { addLetter } from '../../redux/usersSlice';
+import { addLetter, addInitialPlayerLetter } from '../../redux/usersSlice';
 import { RootStateUsers, User } from '../../redux/usersSlice';
 import Letter from './Letter';
 import letterRepo from './letterRepo';
@@ -23,6 +23,8 @@ const LetterCollection = () => {
 
   const [initialLetters, setInitialLetters] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
+  const [initialLettersLoaded, setInitialLettersLoaded] = useState(false);
+  const [initialLettersAdded, setInitialLettersAdded] = useState(false)
 
   useEffect(() => {
     dispatch(setLetters(letterRepo));
@@ -36,18 +38,20 @@ const LetterCollection = () => {
       
       for (let i = 0; i < numLettersToAdd; i++) {
         const letterToAdd = getRandomLetter(letters);
-        // console.log(letterToAdd);
         newInitialLetters.push(letterToAdd);
       }
 
       setInitialLetters(newInitialLetters);
+      setInitialLettersLoaded(true);
     } else {
       console.log("letters and or players aren't ready yet");
     }
   }, [loading])
 
   useEffect(() => {
-    if (initialLetters.length > 0) {
+    if (initialLetters.length > 0 && initialLettersLoaded && !initialLettersAdded) {
+      setInitialLettersAdded(true);
+      console.log("conditions satisfied");
       const numPlayers = currentPlayers.length;
 
       currentPlayers.forEach((p, i) => {
@@ -55,11 +59,14 @@ const LetterCollection = () => {
         const end = start + 7;
         const playerInitialLetters = initialLetters.slice(start, end);
         playerInitialLetters.forEach(l => {
-          // handleAddLetter(p._id, l)
+          dispatch(addInitialPlayerLetter({ userId: p._id, letter: l }));
+          dispatch(decrementLetterCount(l));
         })
       })
     }
-  }, [])
+  }, [initialLettersLoaded])
+
+  console.log("component rendered");
 
   const handleAddLetter = (userId: string, letters: Letter[]) => {
     const letterToAdd = getRandomLetter(letters);
@@ -97,6 +104,8 @@ const LetterCollection = () => {
     console.log(letters.length);
     console.log(currentTurn);
     console.log(initialLetters);
+    console.log(currentPlayers[0].letters);
+    console.log(currentPlayers[1].letters);
   }
 
   return (
