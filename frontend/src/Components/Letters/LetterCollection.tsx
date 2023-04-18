@@ -114,6 +114,10 @@ const LetterCollection = () => {
     {currentPlayers && currentPlayers.map(p => {
       return p.letters?.map(l =>
         <div key={Math.random()}>
+          {/* {(() => {
+            console.log(l);
+            return null;
+          })()} */}
         <Letter letter={l} />
         </div>
         )

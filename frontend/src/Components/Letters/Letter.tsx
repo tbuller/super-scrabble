@@ -5,7 +5,7 @@ import { RootStateLetters } from '../../redux/lettersSlice';
 import '../../styling/Letter.scss';
 
 interface LetterProps {
-  letter: string;
+  letter: any;
 }
 
 const Letter = ({ letter }: LetterProps) => {
@@ -25,7 +25,7 @@ const Letter = ({ letter }: LetterProps) => {
 
   return (
     <div className="individual-letter-container" onClick={() => console.log(letterInfo)}>
-    <div className="letter-charcater"></div>
+    <div className="letter-charcater">{letter}</div>
     <div className="letter-value"></div>
     </div>
   )
