@@ -1,9 +1,30 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootStateLetters } from '../../redux/lettersSlice';
+import '../../styling/Letter.scss';
 
-const Letter = () => {
+interface LetterProps {
+  letter: string;
+}
+
+const Letter = ({ letter }: LetterProps) => {
+
+  const dispatch = useDispatch();
+  const letters = useSelector((state: RootStateLetters) => state.letters.letters);
+
+  const [letterInfo, setLetterInfo] = useState({});
+
+  useEffect(() => {
+    const associatedInfo = letters.find(l => l.letter === letter);
+    setLetterInfo(associatedInfo || {});
+  }, [])
 
   return (
-    <div></div>
+    <div className="individual-letter-container" onClick={() => console.log(letterInfo)}>
+    <div className="letter-charcater"></div>
+    <div className="letter-value"></div>
+    </div>
   )
 }
 
