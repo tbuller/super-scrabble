@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { setSelectedLetter } from '../../redux/lettersSlice'
 import { RootStateLetters } from '../../redux/lettersSlice';
 import '../../styling/Letter.scss';
 
@@ -12,19 +13,22 @@ const Letter = ({ letter }: LetterProps) => {
 
   const dispatch = useDispatch();
   const letters = useSelector((state: RootStateLetters) => state.letters.letters);
+  const selectedLetter = useSelector((state: RootStateLetters) => state.letters.selectedLetter);
 
   const [letterInfo, setLetterInfo] = useState<any>({});
 
   useEffect(() => {
-    console.log(letter);
-    console.log(letters);
     const associatedInfo = letters.find(l => l.letter === letter);
-    console.log(associatedInfo);
     setLetterInfo(associatedInfo || {});
   }, [])
 
+  const handleLetterSelect = () => {
+    dispatch(setSelectedLetter(letterInfo));
+    console.log(selectedLetter);
+  }
+
   return (
-    <div className="individual-letter-container" onClick={() => console.log(letterInfo)}>
+    <div className="individual-letter-container" onClick={handleLetterSelect}>
     <div className="letter-character">{letter}</div>
     <div className="letter-value">{letterInfo.value}</div>
     </div>

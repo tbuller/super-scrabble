@@ -19,6 +19,7 @@ const LetterCollection = () => {
 
   const dispatch = useDispatch();
   const letters = useSelector((state: RootStateLetters) => state.letters.letters);
+  const selectedLetter = useSelector((state: RootStateLetters) => state.letters.selectedLetter);
   const currentPlayers = useSelector((state: RootStateUsers) => state.users.currentPlayers);
   const currentTurn = useSelector((state: RootStateUsers) => state.users.currentTurn); 
 
@@ -100,20 +101,13 @@ const LetterCollection = () => {
   const showLetters = () => {
     let totalCount = 0;
     letters.forEach(l => totalCount += l.count);
-    console.log(totalCount);
-    console.log(currentTurn);
-    console.log(initialLetters);
-    console.log(currentPlayers[0].letters);
-    console.log(currentPlayers[1].letters);
-    {currentPlayers[2] && console.log(currentPlayers[2].letters)};
-    {currentPlayers[3] && console.log(currentPlayers[3].letters)};
   }
 
   
 return (
   <div>
-  <div>
   <div className="player-letters-area-container">
+  <div>
   {currentPlayers &&
     currentPlayers.map((p) => {
       return (

@@ -8,6 +8,10 @@
   height: 2.5em;
   width: 2.5em;
   background-color: #FFF9DB;
+  &:hover {
+    cursor: pointer;
+    background-color: rgb(38, 187, 38);
+  }
 }
 
 .letter-character {
