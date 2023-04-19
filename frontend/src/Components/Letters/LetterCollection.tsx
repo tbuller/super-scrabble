@@ -113,7 +113,7 @@ const LetterCollection = () => {
 return (
   <div>
   <div>
-  <div>
+  <div className="player-letters-area-container">
   {currentPlayers &&
     currentPlayers.map((p) => {
       return (

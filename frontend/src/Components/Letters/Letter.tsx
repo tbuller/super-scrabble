@@ -25,7 +25,7 @@ const Letter = ({ letter }: LetterProps) => {
 
   return (
     <div className="individual-letter-container" onClick={() => console.log(letterInfo)}>
-    <div className="letter-charcater">{letter}</div>
+    <div className="letter-character">{letter}</div>
     <div className="letter-value">{letterInfo.value}</div>
     </div>
   )
