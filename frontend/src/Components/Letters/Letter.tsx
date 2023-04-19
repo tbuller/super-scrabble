@@ -13,7 +13,7 @@ const Letter = ({ letter }: LetterProps) => {
   const dispatch = useDispatch();
   const letters = useSelector((state: RootStateLetters) => state.letters.letters);
 
-  const [letterInfo, setLetterInfo] = useState({});
+  const [letterInfo, setLetterInfo] = useState<any>({});
 
   useEffect(() => {
     console.log(letter);
@@ -26,7 +26,7 @@ const Letter = ({ letter }: LetterProps) => {
   return (
     <div className="individual-letter-container" onClick={() => console.log(letterInfo)}>
     <div className="letter-charcater">{letter}</div>
-    <div className="letter-value"></div>
+    <div className="letter-value">{letterInfo.value}</div>
     </div>
   )
 }
