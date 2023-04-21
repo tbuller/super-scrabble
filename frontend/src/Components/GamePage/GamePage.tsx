@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setInitialTurn, setNextTurn, addLetter } from '../../redux/usersSlice';
@@ -18,6 +19,8 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
   const currentPlayers = useSelector((state: RootStateUsers) => state.users.currentPlayers);
   const currentTurn = useSelector((state: RootStateUsers) => state.users.currentTurn);
 
+  const [inputText, setInputText] = useState("");
+
   useEffect(() => {
     dispatch(setInitialTurn(currentPlayers[0]));
   }, [currentPlayers.length])
@@ -32,14 +35,26 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
     }
   }
 
+  const handleInputChange = (event: any) => {
+    setInputText(event.target.value);
+  }
+
   const showPlayers = () => {
     console.log(currentPlayers);
+  }
+
+  const checkWord = () => {
+    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${inputText}`)
+      .then(response => response.json())
+      .then(data => console.log(data))
   }
 
   return (
     <div>
     <div>Game page</div>
     <button onClick={handleNextTurn}>Next turn</button>
+    <input type="text" onChange={handleInputChange} />
+    <button onClick={checkWord}>check word</button>
     <button onClick={showPlayers}>show current players</button>
     <div className="players-coontainer">
     <CurrentPlayers />
