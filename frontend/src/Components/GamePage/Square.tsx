@@ -1,5 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectedSquareIndex } from '../../redux/squaresSlice';
+import { RootStateSquares } from '../../redux/squaresSlice';
 import '../../styling/Square.scss';
 
 type SquareProps = {
@@ -7,6 +10,9 @@ type SquareProps = {
 }
 
 const Square: React.FC<SquareProps> = ({ index }) => {
+
+  const dispatch = useDispatch();
+  const selectedSquareIndex = useSelector((state: RootStateSquares) => state.squares.selectedSquareIndex);
 
   const [squareType, setSquareType] = useState("normal-square");
   const [squareText, setSquareText] = useState("");
