@@ -23,7 +23,7 @@ const LetterCollection = () => {
   const currentPlayers = useSelector((state: RootStateUsers) => state.users.currentPlayers);
   const currentTurn = useSelector((state: RootStateUsers) => state.users.currentTurn); 
 
-  const [initialLetters, setInitialLetters] = useState<string[]>([]);
+  const [initialLetters, setInitialLetters] = useState<Letter[]>([]);
   const [loading, setLoading] = useState(true);
   const [initialLettersLoaded, setInitialLettersLoaded] = useState(false);
   const [initialLettersAdded, setInitialLettersAdded] = useState(false)
@@ -36,15 +36,17 @@ const LetterCollection = () => {
   useEffect(() => {
     if (letters.length > 0 && currentPlayers) {
       const numLettersToAdd = currentPlayers.length * 7;
-      let newInitialLetters: string[] = [];
+      let newInitialLetters: any[] = [];
       
       for (let i = 0; i < numLettersToAdd; i++) {
         const letterToAdd = getRandomLetter(letters);
         newInitialLetters.push(letterToAdd);
+        console.log(letterToAdd);
       }
 
       setInitialLetters(newInitialLetters);
       setInitialLettersLoaded(true);
+      console.log(initialLetters);
     } else {
       console.log("letters and or players aren't ready yet");
     }
@@ -59,7 +61,7 @@ const LetterCollection = () => {
         const end = start + 7;
         const playerInitialLetters = initialLetters.slice(start, end);
         console.log(playerInitialLetters);
-        dispatch(addInitialPlayerLetters({ userId: p._id, letters: playerInitialLetters }))
+        dispatch(addInitialPlayerLetters({ userId: p._id, letters: playerInitialLetters }));
       })
     }
   }, [initialLettersLoaded])
@@ -87,7 +89,7 @@ const LetterCollection = () => {
 
       if (randomIndex <= 0) {
         dispatch(decrementLetterCount(letters[i].letter))
-        return letters[i].letter;
+        return letters[i];
       }
     }
 
@@ -115,7 +117,7 @@ return (
           <div className="username-letter-container">{p.username}</div>
           {p.letters?.map((l) => (
             <div key={Math.random()}>
-              <Letter letter={l} associatedPlayer={p} uniqueId={Math.random().toString(36).slice(2, 9)} />
+              <Letter letter={l} associatedPlayer={p} />
             </div>
           ))}
         </div>

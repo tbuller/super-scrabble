@@ -9,10 +9,9 @@ import '../../styling/Letter.scss';
 interface LetterProps {
   letter: any;
   associatedPlayer: any;
-  uniqueId: any;
 }
 
-const Letter = ({ letter, associatedPlayer, uniqueId }: LetterProps) => {
+const Letter = ({ letter, associatedPlayer }: LetterProps) => {
 
   const dispatch = useDispatch();
   const currentTurn = useSelector((state: RootStateUsers) => state.users.currentTurn);
@@ -22,35 +21,38 @@ const Letter = ({ letter, associatedPlayer, uniqueId }: LetterProps) => {
   const badSelection = useSelector((state: RootStateLetters) => state.letters.badSelection);
 
   const [letterInfo, setLetterInfo] = useState<any>({});
+  const [isLetterInfoSet, setIsLetterInfoSet] = useState(false);
   const [isLetterSelected, setIsLetterSelected] = useState(false);
 
-  useEffect(() => {
-    const associatedInfo = letters.find(l => l.letter === letter);
-    setLetterInfo(associatedInfo || {});
-  }, [])
+  // useEffect(() => {
+  //   if (!isLetterInfoSet) {
+  //     const associatedInfo = letters.find(l => l.letter === letter);
+  //     setLetterInfo(associatedInfo || {});
+  //   }
+  // }, [])
 
-  useEffect(() => {
-    if (selectedLetterId === uniqueId) {
-      setIsLetterSelected(true);
-    }
-  }, [selectedLetterId, uniqueId])
+  // useEffect(() => {
+  //   if (selectedLetterId) {
+  //     setIsLetterSelected(true);
+  //   }
+  // }, [selectedLetterId])
 
   const handleLetterSelect = () => {
     if ((currentTurn && currentTurn._id) === associatedPlayer._id) {
-      dispatch(setSelectedLetter(letterInfo));
-      dispatch(setSelectedLetterId(uniqueId));
+      dispatch(setSelectedLetter(letter));
+      // dispatch(setSelectedLetterId(uniqueId));
       console.log(selectedLetter);
       console.log(badSelection);
-      console.log(uniqueId);
+      // console.log(uniqueId);
       console.log(selectedLetterId);
     } else {
       console.log("Not this player's turn");
-      dispatch(setBadSelection(uniqueId));
+      // dispatch(setBadSelection(uniqueId));
     }
   }
 
   return (
-    <div className={`individual-letter-container${isLetterSelected ? " selected" : badSelection === uniqueId ? " bad-selection" : ""}`} onClick={handleLetterSelect}>
+    <div className={`individual-letter-container${isLetterSelected ? " selected" : badSelection ? " bad-selection" : ""}`} onClick={handleLetterSelect}>
     <div className="letter-character">{letter}</div>
     <div className="letter-value">{letterInfo.value}</div>
     </div>
