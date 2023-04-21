@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import usersReducer from './usersSlice';
 import lettersReducer from './lettersSlice';
 import squaresReducer from './squaresSlice';
+import wordsReducer from './wordsSlice';
 
 const store = configureStore({
   reducer: {
     users: usersReducer,
     letters: lettersReducer,
+    words: wordsReducer,
     squares: squaresReducer
   }
 });
