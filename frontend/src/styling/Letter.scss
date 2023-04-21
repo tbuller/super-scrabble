@@ -12,6 +12,12 @@
     cursor: pointer;
     background-color: rgb(38, 187, 38);
   }
+  &.bad-selection {
+    background-color: red !important;
+  }
+  &.selected {
+    background-color: green;
+  }
 }
 
 .letter-character {

@@ -115,7 +115,7 @@ return (
           <div className="username-letter-container">{p.username}</div>
           {p.letters?.map((l) => (
             <div key={Math.random()}>
-              <Letter letter={l} associatedPlayer={p} />
+              <Letter letter={l} associatedPlayer={p} uniqueId={Math.random().toString(36).slice(2, 9)} />
             </div>
           ))}
         </div>
