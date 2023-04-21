@@ -10,11 +10,13 @@ export type Letter = {
 type LettersState = {
   letters: Letter[];
   selectedLetter: any;
+  badSelection: any;
 }
 
 const initialState: LettersState = {
   letters: [],
-  selectedLetter: {}
+  selectedLetter: {},
+  badSelection: {}
 }
 
 const lettersSlice = createSlice({
@@ -35,12 +37,15 @@ const lettersSlice = createSlice({
     },
     unsetSelectedLetter: (state, action) => {
       state.selectedLetter = {};
+    },
+    setBadSelection: (state, action: PayloadAction<Letter>) => {
+      state.badSelection = action.payload
     }
   }
 })
 
 export default lettersSlice.reducer;
-export const { setLetters, decrementLetterCount, setSelectedLetter, unsetSelectedLetter } = lettersSlice.actions;
+export const { setLetters, decrementLetterCount, setSelectedLetter, unsetSelectedLetter, setBadSelection } = lettersSlice.actions;
 
 export type RootStateLetters = {
   letters: LettersState;
