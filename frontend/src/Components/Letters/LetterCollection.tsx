@@ -88,8 +88,9 @@ const LetterCollection = () => {
       randomIndex -= letters[i].count;
 
       if (randomIndex <= 0) {
-        dispatch(decrementLetterCount(letters[i].letter))
-        return letters[i];
+        dispatch(decrementLetterCount(letters[i].letter));
+        const uniqueId = Math.random().toString(36).slice(2, 9);
+        return { ...letters[i], uniqueId: uniqueId };
       }
     }
 

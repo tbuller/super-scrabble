@@ -43,6 +43,7 @@ const Letter = ({ letter, associatedPlayer }: LetterProps) => {
       // dispatch(setSelectedLetterId(uniqueId));
       console.log(selectedLetter);
       console.log(badSelection);
+      console.log(letter.uniqueId);
       // console.log(uniqueId);
       console.log(selectedLetterId);
     } else {
@@ -53,8 +54,8 @@ const Letter = ({ letter, associatedPlayer }: LetterProps) => {
 
   return (
     <div className={`individual-letter-container${isLetterSelected ? " selected" : badSelection ? " bad-selection" : ""}`} onClick={handleLetterSelect}>
-    <div className="letter-character">{letter}</div>
-    <div className="letter-value">{letterInfo.value}</div>
+    <div className="letter-character">{letter.letter}</div>
+    <div className="letter-value">{letter.value}</div>
     </div>
   )
 }
