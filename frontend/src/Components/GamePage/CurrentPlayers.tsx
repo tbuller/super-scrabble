@@ -16,7 +16,7 @@ const CurrentPlayers = () => {
         {p._id === currentTurn?._id && <AiOutlineArrowDown className="turn-indicator-arrow" />} 
         <div className="current-player-icon" key={p._id}>{p.username[0].toUpperCase()}</div>
         </div>
-        )}  
+        )}
     </div>
   )
 }

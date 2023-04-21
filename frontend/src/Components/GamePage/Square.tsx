@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedSquareIndex } from '../../redux/squaresSlice';
 import { RootStateSquares } from '../../redux/squaresSlice';
+import { RootStateLetters } from '../../redux/lettersSlice';
 import '../../styling/Square.scss';
 
 type SquareProps = {
@@ -13,9 +14,11 @@ const Square: React.FC<SquareProps> = ({ index }) => {
 
   const dispatch = useDispatch();
   const selectedSquareIndex = useSelector((state: RootStateSquares) => state.squares.selectedSquareIndex);
+  const selectedLetter = useSelector((state: RootStateLetters) => state.letters.selectedLetter);
 
   const [squareType, setSquareType] = useState("normal-square");
   const [squareText, setSquareText] = useState("");
+  const [squareLetter, setSquareLetter] = useState({});
 
   const tripleWordIndices = [0, 7, 14, 105, 119, 210, 217, 224];
   const doubleWordIndices = [16, 28, 32, 42, 48, 56, 64, 70, 154, 160, 168, 176, 182, 192, 196, 208];
@@ -41,12 +44,15 @@ const Square: React.FC<SquareProps> = ({ index }) => {
     }
   }, [])
 
-  const showIndex = () => {
-    console.log(index);
+  const handleSetSelectedSquareIndex = () => {
+    if (selectedLetter.value) {
+      dispatch(setSelectedSquareIndex(index));
+      setSquareLetter(selectedLetter);
+    }
   }
 
   return (
-    <div className={squareType} onClick={showIndex}>{squareText}</div>
+    <div className={squareType} onClick={handleSetSelectedSquareIndex}>{squareText}</div>
   )
 }
 
