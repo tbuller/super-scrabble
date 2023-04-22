@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 type Word = {
+  playerId: string;
   word: string;
 }
 

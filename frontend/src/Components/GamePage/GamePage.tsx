@@ -2,8 +2,9 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setInitialTurn, setNextTurn, addLetter } from '../../redux/usersSlice';
+import { setInitialTurn, setNextTurn } from '../../redux/usersSlice';
 import { RootStateUsers } from '../../redux/usersSlice';
+import { RootStateLetters } from '../../redux/lettersSlice';
 import Board from './Board';
 import CurrentPlayers from './CurrentPlayers';
 import LetterCollection from '../Letters/LetterCollection';
@@ -18,6 +19,7 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
   const dispatch = useDispatch();
   const currentPlayers = useSelector((state: RootStateUsers) => state.users.currentPlayers);
   const currentTurn = useSelector((state: RootStateUsers) => state.users.currentTurn);
+  const justPlayed = useSelector((state: RootStateLetters) => state.letters.justPlayed);
 
   const [inputText, setInputText] = useState("");
 
@@ -35,12 +37,18 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
     }
   }
 
+  const assembleWord = () => {
+    const sortedWord = justPlayed.sort((a: any, b: any) => a.squareIndex - b.squareIndex);
+
+  }
+
   const handleInputChange = (event: any) => {
     setInputText(event.target.value);
   }
 
   const showPlayers = () => {
     console.log(currentPlayers);
+    console.log(justPlayed);
   }
 
   const checkWord = () => {

@@ -19,6 +19,7 @@ const Square: React.FC<SquareProps> = ({ index }) => {
 
   const dispatch = useDispatch();
   const currentPlayers = useSelector((state: RootStateUsers) => state.users.currentPlayers);
+  const currentTurn = useSelector((state: RootStateUsers) => state.users.currentTurn);
   const selectedSquareIndex = useSelector((state: RootStateSquares) => state.squares.selectedSquareIndex);
   const selectedLetter = useSelector((state: RootStateLetters) => state.letters.selectedLetter);
 
@@ -53,7 +54,7 @@ const Square: React.FC<SquareProps> = ({ index }) => {
   const handleSetSelectedSquareIndex = () => {
     if (selectedLetter.value) {
       dispatch(setSelectedSquareIndex(index));
-      dispatch(addJustPlayed(selectedLetter));
+      dispatch(addJustPlayed({letter: selectedLetter, playerId: currentTurn?._id, squareIndex: index}));
       setSquareLetter(selectedLetter);
       dispatch(removeLetter(selectedLetter));
       dispatch(unsetSelectedLetter({}));
