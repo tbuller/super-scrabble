@@ -65,14 +65,15 @@ const usersSlice = createSlice({
       }
     },
     removeLetter: (state, action) => {
-      const relevantUser = state.currentPlayers.find(p => {
-        p.letters.some(l => l.uniqueId === action.payload.uniqueId)
-      });
-
-      if (relevantUser) {
-        relevantUser.letters = relevantUser.letters.filter(l => l.uniqueId !== action.payload.uniqueId);
-      }
-    }
+      state.currentPlayers.forEach((player, playerIndex) => {
+        const letterIndex = player.letters.findIndex(letter => letter.uniqueId === action.payload.uniqueId);
+    
+        if (letterIndex !== -1) {
+          state.currentPlayers[playerIndex].letters.splice(letterIndex, 1);
+          return;
+        }
+      })
+    }    
   }
 })
 
