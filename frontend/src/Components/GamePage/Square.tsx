@@ -2,8 +2,12 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedSquareIndex } from '../../redux/squaresSlice';
+import { RootStateUsers } from '../../redux/usersSlice';
 import { RootStateSquares } from '../../redux/squaresSlice';
-import { RootStateLetters, addJustPlayed } from '../../redux/lettersSlice';
+import { RootStateLetters } from '../../redux/lettersSlice';
+import { addJustPlayed, unsetSelectedLetter } from '../../redux/lettersSlice';
+import CurrentPlayers from './CurrentPlayers';
+import Letter from '../Letters/Letter';
 import '../../styling/Square.scss';
 
 type SquareProps = {
@@ -13,6 +17,7 @@ type SquareProps = {
 const Square: React.FC<SquareProps> = ({ index }) => {
 
   const dispatch = useDispatch();
+  const currentPlayers = useSelector((state: RootStateUsers) => state.users.currentPlayers);
   const selectedSquareIndex = useSelector((state: RootStateSquares) => state.squares.selectedSquareIndex);
   const selectedLetter = useSelector((state: RootStateLetters) => state.letters.selectedLetter);
 
@@ -49,6 +54,8 @@ const Square: React.FC<SquareProps> = ({ index }) => {
       dispatch(setSelectedSquareIndex(index));
       dispatch(addJustPlayed(selectedLetter));
       setSquareLetter(selectedLetter);
+      dispatch(unsetSelectedLetter({}));
+      console.log(currentPlayers[0].letters);
       console.log(selectedLetter);
     } else {
       console.log(selectedLetter);
@@ -56,7 +63,7 @@ const Square: React.FC<SquareProps> = ({ index }) => {
   }
 
   return (
-    <div className={`${squareType}${selectedLetter.value ? " selected-letter" : ""}`} onClick={handleSetSelectedSquareIndex}>{squareText}</div>
+    <div className={`${squareType}${selectedLetter.value ? " selected-letter" : ""}`} onClick={handleSetSelectedSquareIndex}>{(squareLetter as any).value ? "letter" : squareText}</div>
   )
 }
 

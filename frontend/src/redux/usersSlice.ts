@@ -2,11 +2,18 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getCommentRange } from 'typescript';
 import { Letter } from './lettersSlice';
 
+type LetterWithUniqueId = {
+  letter: string;
+  value: number;
+  count: number;
+  uniqueId: string;
+}
+
 export type User = {
   _id: string;
   username: string;
   password: string;
-  letters: Letter[];
+  letters: LetterWithUniqueId[];
   currentScore: number;
 }
 
@@ -56,12 +63,21 @@ const usersSlice = createSlice({
         }
         relevantUser.letters.push(action.payload.letter);
       }
+    },
+    removeLetter: (state, action) => {
+      const relevantUser = state.currentPlayers.find(p => {
+        p.letters.some(l => l.uniqueId === action.payload.uniqueId)
+      });
+
+      if (relevantUser) {
+        relevantUser.letters.filter(l => l.uniqueId !== action.payload.uniqueId);
+      }
     }
   }
 })
 
 export default usersSlice.reducer;
-export const { setUsers, addUser, addCurrentPlayer, setInitialTurn, setNextTurn, addInitialPlayerLetters, addLetter } = usersSlice.actions;
+export const { setUsers, addUser, addCurrentPlayer, setInitialTurn, setNextTurn, addInitialPlayerLetters, addLetter, removeLetter } = usersSlice.actions;
 
 export type RootStateUsers = {
   users: UsersState;

@@ -41,7 +41,6 @@ const LetterCollection = () => {
       for (let i = 0; i < numLettersToAdd; i++) {
         const letterToAdd = getRandomLetter(letters);
         newInitialLetters.push(letterToAdd);
-        console.log(letterToAdd);
       }
 
       setInitialLetters(newInitialLetters);
