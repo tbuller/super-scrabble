@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedSquareIndex } from '../../redux/squaresSlice';
 import { RootStateUsers } from '../../redux/usersSlice';
+import { removeLetter } from '../../redux/usersSlice';
 import { RootStateSquares } from '../../redux/squaresSlice';
 import { RootStateLetters } from '../../redux/lettersSlice';
 import { addJustPlayed, unsetSelectedLetter } from '../../redux/lettersSlice';
@@ -54,6 +55,7 @@ const Square: React.FC<SquareProps> = ({ index }) => {
       dispatch(setSelectedSquareIndex(index));
       dispatch(addJustPlayed(selectedLetter));
       setSquareLetter(selectedLetter);
+      dispatch(removeLetter(selectedLetter));
       dispatch(unsetSelectedLetter({}));
       console.log(currentPlayers[0].letters);
       console.log(selectedLetter);
@@ -63,7 +65,7 @@ const Square: React.FC<SquareProps> = ({ index }) => {
   }
 
   return (
-    <div className={`${squareType}${selectedLetter.value ? " selected-letter" : ""}`} onClick={handleSetSelectedSquareIndex}>{(squareLetter as any).value ? "letter" : squareText}</div>
+    <div className={`${squareType}${selectedLetter.value ? " selected-letter" : ""}`} onClick={handleSetSelectedSquareIndex}>{(squareLetter as any).value ? (squareLetter as any).letter : squareText}</div>
   )
 }
 

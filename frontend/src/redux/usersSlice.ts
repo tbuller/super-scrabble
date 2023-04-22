@@ -70,7 +70,7 @@ const usersSlice = createSlice({
       });
 
       if (relevantUser) {
-        relevantUser.letters.filter(l => l.uniqueId !== action.payload.uniqueId);
+        relevantUser.letters = relevantUser.letters.filter(l => l.uniqueId !== action.payload.uniqueId);
       }
     }
   }
