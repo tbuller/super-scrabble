@@ -9,31 +9,45 @@
   font-weight: bold;
 }
 
+@mixin selected-letter {
+  &.selected-letter {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
 .normal-square {
   @extend .square;
+  @include selected-letter;
 }
 
 .triple-word-square {
   @extend .square;
+  @include selected-letter;
   background-color: red;
 }
 
 .double-word-square {
   @extend .square;
+  @include selected-letter;
   background-color: blue;
 }
 
 .triple-letter-square {
   @extend .square;
+  @include selected-letter;
   background-color: aqua;
 }
 
 .double-letter-square {
   @extend .square;
+  @include selected-letter;
   background-color: orange;
 }
 
 .middle-square {
   @extend .square;
+  @include selected-letter;
   background-color: black;
 }

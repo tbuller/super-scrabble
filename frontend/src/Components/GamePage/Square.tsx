@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedSquareIndex } from '../../redux/squaresSlice';
 import { RootStateSquares } from '../../redux/squaresSlice';
-import { RootStateLetters } from '../../redux/lettersSlice';
+import { RootStateLetters, addJustPlayed } from '../../redux/lettersSlice';
 import '../../styling/Square.scss';
 
 type SquareProps = {
@@ -47,12 +47,16 @@ const Square: React.FC<SquareProps> = ({ index }) => {
   const handleSetSelectedSquareIndex = () => {
     if (selectedLetter.value) {
       dispatch(setSelectedSquareIndex(index));
+      dispatch(addJustPlayed(selectedLetter));
       setSquareLetter(selectedLetter);
+      console.log(selectedLetter);
+    } else {
+      console.log(selectedLetter);
     }
   }
 
   return (
-    <div className={squareType} onClick={handleSetSelectedSquareIndex}>{squareText}</div>
+    <div className={`${squareType}${selectedLetter.value ? " selected-letter" : ""}`} onClick={handleSetSelectedSquareIndex}>{squareText}</div>
   )
 }
 
