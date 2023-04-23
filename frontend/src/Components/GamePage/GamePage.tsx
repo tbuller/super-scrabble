@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setInitialTurn, setNextTurn } from '../../redux/usersSlice';
 import { RootStateUsers } from '../../redux/usersSlice';
 import { RootStateLetters } from '../../redux/lettersSlice';
+import { addWord } from '../../redux/wordsSlice';
 import Board from './Board';
 import CurrentPlayers from './CurrentPlayers';
 import LetterCollection from '../Letters/LetterCollection';
@@ -38,8 +39,8 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
   }
 
   const assembleWord = () => {
-    const sortedWord = justPlayed.sort((a: any, b: any) => a.squareIndex - b.squareIndex);
-
+    const sortedWord = justPlayed.sort((a: any, b: any) => a.squareIndex - b.squareIndex).join();
+    dispatch(addWord(sortedWord))
   }
 
   const handleInputChange = (event: any) => {
