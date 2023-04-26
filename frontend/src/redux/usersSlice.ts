@@ -40,7 +40,7 @@ const usersSlice = createSlice({
       state.users.push(action.payload);
     },
     addCurrentPlayer: (state, action: PayloadAction<User>) => {
-      state.currentPlayers.push(action.payload);
+      state.currentPlayers.push({...action.payload, currentScore: 0});
     },
     setInitialTurn: (state, action) => {
       state.currentTurn = action.payload;
@@ -77,7 +77,8 @@ const usersSlice = createSlice({
     },
     addPlayerScore: (state, action) => {
       const relevantPlayer = state.currentPlayers.find(p => p._id === action.payload.userId);
-
+      console.log(relevantPlayer);
+      console.log(action.payload);
       if (relevantPlayer) {
         relevantPlayer.currentScore += action.payload.points;
       }
@@ -86,7 +87,7 @@ const usersSlice = createSlice({
 })
 
 export default usersSlice.reducer;
-export const { setUsers, addUser, addCurrentPlayer, setInitialTurn, setNextTurn, addInitialPlayerLetters, addLetter, removeLetter } = usersSlice.actions;
+export const { setUsers, addUser, addCurrentPlayer, setInitialTurn, setNextTurn, addInitialPlayerLetters, addLetter, removeLetter, addPlayerScore } = usersSlice.actions;
 
 export type RootStateUsers = {
   users: UsersState;

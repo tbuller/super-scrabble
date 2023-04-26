@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setInitialTurn, setNextTurn, addLetter } from '../../redux/usersSlice';
+import { addPlayerScore } from '../../redux/usersSlice';
 import { RootStateUsers } from '../../redux/usersSlice';
 import { emptyJustPlayed } from '../../redux/lettersSlice';
 import { RootStateLetters } from '../../redux/lettersSlice';
@@ -33,10 +34,19 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
     dispatch(setInitialTurn(currentPlayers[0]));
   }, [currentPlayers.length])
 
-  const handleNextTurn = async () => {
+  const calculateScoreToAdd = () => {
     const wordIndices = assembleWord();
+    const lettersToCount = allPlayedSquares.filter((square: any) => wordIndices.includes(square.index)).map((square: any) => square);
+    lettersToCount.forEach(letter => {
+      console.log(letter);
+      dispatch(addPlayerScore({ userId: currentTurn?._id, points: letter.letter.value }));
+    })
+  }
+
+  const handleNextTurn = async () => {
     checkWord().then(isValid => {
       if (isValid) {
+        calculateScoreToAdd();
         dispatch(emptyJustPlayed([]));
         const currentTurnIndex = currentPlayers.findIndex(p => p._id === currentTurn?._id);
     
@@ -82,8 +92,6 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
         return i === 0 || currentTile.row === previousTile?.row;
       });
     }
-  
-    console.log("Is horizontal:", isHorizontal);
 
     let currentIndex = sortedWord[0].squareIndex;
     let relevantIndices = [];
@@ -128,7 +136,6 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
   const checkWord = () => {
     const wordIndices = assembleWord();
     const wordToCheck = allPlayedSquares.filter((square: any) => wordIndices.includes(square.index)).map((square: any) => square.letter.letter).join("");
-    // const wordToCheck = justPlayed.map((w: any) => w.letter.letter).join("");
     console.log(wordToCheck);
     return fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordToCheck}`)
       .then(response => response.json())
@@ -142,7 +149,7 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
   }
   
   const showPlayers = () => {
-    console.log(currentPlayers);
+    console.log(currentPlayers[0].currentScore);
     console.log(justPlayed);
     console.log(allPlayedSquares);
   }
