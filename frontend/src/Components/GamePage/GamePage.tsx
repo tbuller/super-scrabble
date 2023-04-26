@@ -38,15 +38,53 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
     }
   }
 
-  const indexToRowColumn = (index) => {
+  const indexToRowColumn = (index: number) => {
     const row = Math.floor(index / 15);
-    const column = index % 15;
-    return { row, column };
+    const col = index % 15;
+    return { row, col };
   };
 
-  const assembleWord = () => {
-    const sortedWord = justPlayed.sort((a: any, b: any) => a.squareIndex - b.squareIndex).join();
-    dispatch(addWord(sortedWord))
+  const assembleWord = (board: any) => {
+    const sortedWord = justPlayed.sort((a: any, b: any) => a.index - b.index);
+
+    const isHorizontal = sortedWord.every((tile: any, i: any, arr: any) => {
+      const currentTile = indexToRowColumn(tile.index);
+      const previousTile = i === 0 ? null : indexToRowColumn(arr[i - 1].index);
+      return i === 0 || currentTile.row === previousTile?.row;
+    });
+
+    let word = "";
+    let currentIndex = sortedWord[0].index;
+
+    if (isHorizontal) {
+      let { row, col } = indexToRowColumn(currentIndex);
+
+      while (col > 0 && board[row][col - 1]) {
+        currentIndex--;
+        col--;
+      }
+
+      while (board[row][col]) {
+        word += board[row][col];
+        currentIndex++;
+        col++;
+      }
+    } else {
+      let { row, col } = indexToRowColumn(currentIndex);
+
+      while (row > 0 && board[row - 1][col]) {
+        currentIndex -= 15;
+        row--;
+      }
+
+      while (board[row][col]) {
+        word += board[row][col];
+        currentIndex += 15;
+        row++;
+      }
+    }
+
+    return word;
   }
 
   const handleInputChange = (event: any) => {
