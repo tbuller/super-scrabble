@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedSquareIndex } from '../../redux/squaresSlice';
 import { RootStateUsers } from '../../redux/usersSlice';
 import { removeLetter } from '../../redux/usersSlice';
+import { addPlayedSquare } from '../../redux/squaresSlice';
 import { RootStateSquares } from '../../redux/squaresSlice';
 import { RootStateLetters } from '../../redux/lettersSlice';
 import { addJustPlayed, unsetSelectedLetter } from '../../redux/lettersSlice';
@@ -22,10 +23,11 @@ const Square: React.FC<SquareProps> = ({ index }) => {
   const currentTurn = useSelector((state: RootStateUsers) => state.users.currentTurn);
   const selectedSquareIndex = useSelector((state: RootStateSquares) => state.squares.selectedSquareIndex);
   const selectedLetter = useSelector((state: RootStateLetters) => state.letters.selectedLetter);
+  const squareLetter = useSelector((state: RootStateSquares) => state.squares.playedSquaresIndicesLetter.find((square: any) => square.index === index));
+  const allSquares = useSelector((state: RootStateSquares) => state.squares.playedSquaresIndicesLetter);
 
   const [squareType, setSquareType] = useState("normal-square");
   const [squareText, setSquareText] = useState("");
-  const [squareLetter, setSquareLetter] = useState({});
 
   const tripleWordIndices = [0, 7, 14, 105, 119, 210, 217, 224];
   const doubleWordIndices = [16, 28, 32, 42, 48, 56, 64, 70, 154, 160, 168, 176, 182, 192, 196, 208];
@@ -52,21 +54,22 @@ const Square: React.FC<SquareProps> = ({ index }) => {
   }, [])
 
   const handleSetSelectedSquareIndex = () => {
-    if (selectedLetter.value) {
+    if (selectedLetter?.value) {
       dispatch(setSelectedSquareIndex(index));
       dispatch(addJustPlayed({letter: selectedLetter, playerId: currentTurn?._id, squareIndex: index}));
-      setSquareLetter(selectedLetter);
+      dispatch(addPlayedSquare({ index: index, letter: selectedLetter }));
       dispatch(removeLetter(selectedLetter));
       dispatch(unsetSelectedLetter({}));
       console.log(currentPlayers[0].letters);
       console.log(selectedLetter);
+      console.log(allSquares);
     } else {
       console.log(selectedLetter);
     }
   }
 
   return (
-    <div className={`${squareType}${selectedLetter.value ? " selected-letter" : ""}`} onClick={handleSetSelectedSquareIndex}>{(squareLetter as any).value ? (squareLetter as any).letter : squareText}</div>
+    <div className={`${squareType}${selectedLetter.value ? " selected-letter" : ""}`} onClick={handleSetSelectedSquareIndex}>{(squareLetter as any)?.letter.value ? (squareLetter as any).letter.letter : squareText}</div>
   )
 }
 

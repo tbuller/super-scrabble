@@ -2,10 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 type SquaresState = {
   selectedSquareIndex: any;
+  playedSquaresIndicesLetter: any;
 }
 
 const initialState: SquaresState = {
-  selectedSquareIndex: null
+  selectedSquareIndex: null,
+  playedSquaresIndicesLetter: []
 }
 
 const squaresSlice = createSlice({
@@ -14,12 +16,16 @@ const squaresSlice = createSlice({
   reducers: {
     setSelectedSquareIndex: (state, action) => {
       state.selectedSquareIndex = action.payload;
+    },
+    addPlayedSquare: (state, action) => {
+      state.playedSquaresIndicesLetter.push(action.payload);
+      console.log(state.playedSquaresIndicesLetter);
     }
   }
 })
 
 export default squaresSlice.reducer;
-export const { setSelectedSquareIndex } = squaresSlice.actions;
+export const { setSelectedSquareIndex, addPlayedSquare } = squaresSlice.actions;
 
 export type RootStateSquares = {
   squares: SquaresState;
