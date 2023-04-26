@@ -75,6 +75,8 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
       return i === 0 || currentTile.row === previousTile?.row;
     });
   
+    console.log("Is horizontal:", isHorizontal);
+
     let currentIndex = sortedWord[0].squareIndex;
     let relevantIndices = [];
   
@@ -105,6 +107,8 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
         row++;
       }
     }
+
+    console.log("Relevant indices:", relevantIndices);
     
     return relevantIndices;
   }
