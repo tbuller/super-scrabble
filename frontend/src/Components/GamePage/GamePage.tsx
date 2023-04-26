@@ -6,6 +6,7 @@ import { setInitialTurn, setNextTurn } from '../../redux/usersSlice';
 import { RootStateUsers } from '../../redux/usersSlice';
 import { RootStateLetters } from '../../redux/lettersSlice';
 import { addWord } from '../../redux/wordsSlice';
+import { RootStateSquares } from '../../redux/squaresSlice';
 import Board from './Board';
 import CurrentPlayers from './CurrentPlayers';
 import LetterCollection from '../Letters/LetterCollection';
@@ -21,6 +22,7 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
   const currentPlayers = useSelector((state: RootStateUsers) => state.users.currentPlayers);
   const currentTurn = useSelector((state: RootStateUsers) => state.users.currentTurn);
   const justPlayed = useSelector((state: RootStateLetters) => state.letters.justPlayed);
+  const allPlayedSquares = useSelector((state: RootStateSquares) => state.squares.playedSquaresIndicesLetter);
 
   const [inputText, setInputText] = useState("");
 
@@ -42,50 +44,55 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
     const row = Math.floor(index / 15);
     const col = index % 15;
     return { row, col };
+  }
+
+  const findSquare = (row: number, col: number) => {
+    const index = row * 15 + col;
+    return allPlayedSquares.find((square: any) => square.index === index);
   };
 
-  const assembleWord = (board: any) => {
-    const sortedWord = justPlayed.sort((a: any, b: any) => a.index - b.index);
-
+  const assembleWord = () => {
+    const sortedWord = justPlayed.sort((a: any, b: any) => a.squareIndex - b.squareIndex);
+  
     const isHorizontal = sortedWord.every((tile: any, i: any, arr: any) => {
       const currentTile = indexToRowColumn(tile.index);
       const previousTile = i === 0 ? null : indexToRowColumn(arr[i - 1].index);
       return i === 0 || currentTile.row === previousTile?.row;
     });
-
-    let word = "";
+  
     let currentIndex = sortedWord[0].index;
-
+    let relevantIndices = [];
+  
     if (isHorizontal) {
       let { row, col } = indexToRowColumn(currentIndex);
-
-      while (col > 0 && board[row][col - 1]) {
+  
+      while (col > 0 && findSquare(row, col - 1)) {
         currentIndex--;
         col--;
       }
-
-      while (board[row][col]) {
-        word += board[row][col];
+  
+      while (col < 15 && findSquare(row, col)) {
+        relevantIndices.push(currentIndex);
         currentIndex++;
         col++;
       }
     } else {
       let { row, col } = indexToRowColumn(currentIndex);
-
-      while (row > 0 && board[row - 1][col]) {
+  
+      while (row > 0 && findSquare(row - 1, col)) {
         currentIndex -= 15;
         row--;
       }
-
-      while (board[row][col]) {
-        word += board[row][col];
+  
+      while (row < 15 && findSquare(row, col)) {
+        relevantIndices.push(currentIndex);
         currentIndex += 15;
         row++;
       }
     }
-
-    return word;
-  }
+  
+    return relevantIndices;
+  };
 
   const handleInputChange = (event: any) => {
     setInputText(event.target.value);

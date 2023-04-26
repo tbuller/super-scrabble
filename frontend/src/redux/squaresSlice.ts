@@ -20,6 +20,11 @@ const squaresSlice = createSlice({
     addPlayedSquare: (state, action) => {
       state.playedSquaresIndicesLetter.push(action.payload);
       console.log(state.playedSquaresIndicesLetter);
+    },
+    removeBadWord: (state, action) => {
+      const badUniqueIds = action.payload.map((l: any) => l.uniqueId);
+
+      state.playedSquaresIndicesLetter.filter((letter: any) => !(badUniqueIds.includes(letter.letter.uniqueId)));
     }
   }
 })
