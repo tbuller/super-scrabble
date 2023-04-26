@@ -69,11 +69,19 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
   const assembleWord = () => {
     const sortedWord = [...justPlayed].sort((a: any, b: any) => a.squareIndex - b.squareIndex);
   
-    const isHorizontal = sortedWord.every((tile: any, i: any, arr: any) => {
-      const currentTile = indexToRowColumn(tile.squareIndex);
-      const previousTile = i === 0 ? null : indexToRowColumn(arr[i - 1].squareIndex);
-      return i === 0 || currentTile.row === previousTile?.row;
-    });
+    let isHorizontal;
+    if (sortedWord.length === 1) {
+      const { row, col } = indexToRowColumn(sortedWord[0].squareIndex);
+      const hasLeftNeighbor = col > 0 && findSquare(row, col - 1);
+      const hasRightNeighbor = col < 14 && findSquare(row, col + 1);
+      isHorizontal = hasLeftNeighbor || hasRightNeighbor;
+    } else {
+      isHorizontal = sortedWord.every((tile: any, i: any, arr: any) => {
+        const currentTile = indexToRowColumn(tile.squareIndex);
+        const previousTile = i === 0 ? null : indexToRowColumn(arr[i - 1].squareIndex);
+        return i === 0 || currentTile.row === previousTile?.row;
+      });
+    }
   
     console.log("Is horizontal:", isHorizontal);
 

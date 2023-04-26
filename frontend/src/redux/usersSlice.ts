@@ -74,6 +74,13 @@ const usersSlice = createSlice({
           return;
         }
       })
+    },
+    addPlayerScore: (state, action) => {
+      const relevantPlayer = state.currentPlayers.find(p => p._id === action.payload.userId);
+
+      if (relevantPlayer) {
+        relevantPlayer.currentScore += action.payload.points;
+      }
     }    
   }
 })
