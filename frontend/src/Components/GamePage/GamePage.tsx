@@ -38,6 +38,12 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
     }
   }
 
+  const indexToRowColumn = (index) => {
+    const row = Math.floor(index / 15);
+    const column = index % 15;
+    return { row, column };
+  };
+
   const assembleWord = () => {
     const sortedWord = justPlayed.sort((a: any, b: any) => a.squareIndex - b.squareIndex).join();
     dispatch(addWord(sortedWord))
