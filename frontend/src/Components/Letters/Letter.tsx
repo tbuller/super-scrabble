@@ -23,19 +23,6 @@ const Letter = ({ letter, associatedPlayer }: LetterProps) => {
   const [isLetterInfoSet, setIsLetterInfoSet] = useState(false);
   const [isLetterSelected, setIsLetterSelected] = useState(false);
 
-  // useEffect(() => {
-  //   if (!isLetterInfoSet) {
-  //     const associatedInfo = letters.find(l => l.letter === letter);
-  //     setLetterInfo(associatedInfo || {});
-  //   }
-  // }, [])
-
-  // useEffect(() => {
-  //   if (selectedLetterId) {
-  //     setIsLetterSelected(true);
-  //   }
-  // }, [selectedLetterId])
-
   const handleLetterSelect = () => {
     if ((currentTurn && currentTurn._id) === associatedPlayer._id) {
       dispatch(setSelectedLetter(letter));

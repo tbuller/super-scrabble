@@ -24,7 +24,7 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
   const currentPlayers = useSelector((state: RootStateUsers) => state.users.currentPlayers);
   const currentTurn = useSelector((state: RootStateUsers) => state.users.currentTurn);
   const justPlayed = useSelector((state: RootStateLetters) => state.letters.justPlayed);
-  const allPlayedSquares = useSelector((state: RootStateSquares) => state.squares.playedSquaresIndicesLetter);
+  const allPlayedSquares = useSelector((state: RootStateSquares) => [...state.squares.playedSquaresIndicesLetter].sort((a: any, b: any) => a.index - b.index));
 
   const [inputText, setInputText] = useState("");
   const [errorMade, setErrorMade] = useState(false);
@@ -47,7 +47,6 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
         }
       } else {
         justPlayed.forEach((letter: any) => {
-          console.log(letter);
           dispatch(addLetter({ userId: letter.playerId, letter: letter.letter }));
           dispatch(removeBadWord(justPlayed));
         })
@@ -133,6 +132,7 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
   const showPlayers = () => {
     console.log(currentPlayers);
     console.log(justPlayed);
+    console.log(allPlayedSquares);
   }
 
   return (

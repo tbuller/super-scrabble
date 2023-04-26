@@ -22,9 +22,9 @@ const squaresSlice = createSlice({
       console.log(state.playedSquaresIndicesLetter);
     },
     removeBadWord: (state, action) => {
-      const badUniqueIds = action.payload.map((l: any) => l.uniqueId);
+      const badUniqueIds = action.payload.map((l: any) => l.letter.uniqueId);
 
-      state.playedSquaresIndicesLetter.filter((letter: any) => !(badUniqueIds.includes(letter.letter.uniqueId)));
+      state.playedSquaresIndicesLetter = state.playedSquaresIndicesLetter.filter((letter: any) => !(badUniqueIds.includes(letter.letter.uniqueId)));
     }
   }
 })

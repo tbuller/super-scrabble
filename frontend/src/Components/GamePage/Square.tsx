@@ -53,6 +53,10 @@ const Square: React.FC<SquareProps> = ({ index }) => {
     }
   }, [])
 
+  useEffect(() => {
+    console.log(squareLetter);
+  }, [squareLetter])
+
   const handleSetSelectedSquareIndex = () => {
     if (selectedLetter?.value) {
       dispatch(setSelectedSquareIndex(index));
