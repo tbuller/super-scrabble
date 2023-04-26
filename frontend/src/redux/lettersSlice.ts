@@ -50,7 +50,7 @@ const lettersSlice = createSlice({
       state.justPlayed.push(action.payload);
     },
     emptyJustPlayed: (state, action) => {
-      state.justPlayed = [];
+      state.justPlayed = action.payload;
     }
   }
 })

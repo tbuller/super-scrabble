@@ -2,8 +2,9 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setInitialTurn, setNextTurn } from '../../redux/usersSlice';
+import { setInitialTurn, setNextTurn, addLetter } from '../../redux/usersSlice';
 import { RootStateUsers } from '../../redux/usersSlice';
+import { emptyJustPlayed } from '../../redux/lettersSlice';
 import { RootStateLetters } from '../../redux/lettersSlice';
 import { addWord } from '../../redux/wordsSlice';
 import { RootStateSquares } from '../../redux/squaresSlice';
@@ -26,19 +27,33 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
   const allPlayedSquares = useSelector((state: RootStateSquares) => state.squares.playedSquaresIndicesLetter);
 
   const [inputText, setInputText] = useState("");
+  const [errorMade, setErrorMade] = useState(false);
 
   useEffect(() => {
     dispatch(setInitialTurn(currentPlayers[0]));
   }, [currentPlayers.length])
 
-  const handleNextTurn = () => {
-    const currentTurnIndex = currentPlayers.findIndex(p => p._id === currentTurn?._id);
+  const handleNextTurn = async () => {
+    const wordIndices = assembleWord();
+    checkWord().then(isValid => {
+      if (isValid) {
+        dispatch(emptyJustPlayed([]));
+        const currentTurnIndex = currentPlayers.findIndex(p => p._id === currentTurn?._id);
     
-    if (currentTurnIndex < currentPlayers.length - 1) {
-      dispatch(setNextTurn(currentPlayers[currentTurnIndex + 1]));
-    } else {
-      dispatch(setNextTurn(currentPlayers[0]));
-    }
+        if (currentTurnIndex < currentPlayers.length - 1) {
+          dispatch(setNextTurn(currentPlayers[currentTurnIndex + 1]));
+        } else {
+          dispatch(setNextTurn(currentPlayers[0]));
+        }
+      } else {
+        justPlayed.forEach((letter: any) => {
+          console.log(letter);
+          dispatch(addLetter({ userId: letter.playerId, letter: letter.letter }));
+          dispatch(removeBadWord(justPlayed));
+        })
+        dispatch(emptyJustPlayed([]));
+      }
+    });
   }
 
   const indexToRowColumn = (index: number) => {
@@ -92,7 +107,6 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
       }
     }
     
-    console.log(relevantIndices);
     return relevantIndices;
   }
 
@@ -101,14 +115,17 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
   }
 
   const checkWord = () => {
-    const wordToCheck = justPlayed.map((w: any) => w.letter.letter).join("");
-    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordToCheck}`)
+    const wordIndices = assembleWord();
+    const wordToCheck = allPlayedSquares.filter((square: any) => wordIndices.includes(square.index)).map((square: any) => square.letter.letter).join("");
+    // const wordToCheck = justPlayed.map((w: any) => w.letter.letter).join("");
+    console.log(wordToCheck);
+    return fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordToCheck}`)
       .then(response => response.json())
       .then(data => {
         if (data[0]?.word) {
-          console.log("this is a word");
+          return true;
         } else {
-          console.log("this is not a word, try again");
+          return false;
         }
       })
   }

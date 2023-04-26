@@ -61,6 +61,7 @@ const usersSlice = createSlice({
         if (!relevantUser.letters) {
           relevantUser.letters = [];
         }
+        console.log(action.payload.letter);
         relevantUser.letters.push(action.payload.letter);
       }
     },
