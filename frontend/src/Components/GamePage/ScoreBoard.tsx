@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { RootStateUsers } from '../../redux/usersSlice';
+import '../../styling/ScoreBoard.scss';
 
 const ScoreBoard = () => {
 

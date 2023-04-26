@@ -1,0 +1,14 @@
+.score-board-container {
+  position: absolute;
+  right: 0;
+  border-style: solid;
+  border-color: black;
+  border-width: 0.14em;
+  display: flex;
+  margin-right: 8em;
+}
+
+.individual-player-container {
+  margin-right: 1em;
+  margin-left: 1em;
+}
