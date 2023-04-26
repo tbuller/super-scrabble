@@ -30,7 +30,7 @@ const squaresSlice = createSlice({
 })
 
 export default squaresSlice.reducer;
-export const { setSelectedSquareIndex, addPlayedSquare } = squaresSlice.actions;
+export const { setSelectedSquareIndex, addPlayedSquare, removeBadWord } = squaresSlice.actions;
 
 export type RootStateSquares = {
   squares: SquaresState;

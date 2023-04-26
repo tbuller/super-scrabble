@@ -7,6 +7,7 @@ import { RootStateUsers } from '../../redux/usersSlice';
 import { RootStateLetters } from '../../redux/lettersSlice';
 import { addWord } from '../../redux/wordsSlice';
 import { RootStateSquares } from '../../redux/squaresSlice';
+import { removeBadWord } from '../../redux/squaresSlice';
 import Board from './Board';
 import CurrentPlayers from './CurrentPlayers';
 import LetterCollection from '../Letters/LetterCollection';
@@ -52,15 +53,15 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
   };
 
   const assembleWord = () => {
-    const sortedWord = justPlayed.sort((a: any, b: any) => a.squareIndex - b.squareIndex);
+    const sortedWord = [...justPlayed].sort((a: any, b: any) => a.squareIndex - b.squareIndex);
   
     const isHorizontal = sortedWord.every((tile: any, i: any, arr: any) => {
-      const currentTile = indexToRowColumn(tile.index);
-      const previousTile = i === 0 ? null : indexToRowColumn(arr[i - 1].index);
+      const currentTile = indexToRowColumn(tile.squareIndex);
+      const previousTile = i === 0 ? null : indexToRowColumn(arr[i - 1].squareIndex);
       return i === 0 || currentTile.row === previousTile?.row;
     });
   
-    let currentIndex = sortedWord[0].index;
+    let currentIndex = sortedWord[0].squareIndex;
     let relevantIndices = [];
   
     if (isHorizontal) {
@@ -90,23 +91,31 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
         row++;
       }
     }
-  
+    
+    console.log(relevantIndices);
     return relevantIndices;
-  };
+  }
 
   const handleInputChange = (event: any) => {
     setInputText(event.target.value);
   }
 
+  const checkWord = () => {
+    const wordToCheck = justPlayed.map((w: any) => w.letter.letter).join("");
+    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${wordToCheck}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data[0]?.word) {
+          console.log("this is a word");
+        } else {
+          console.log("this is not a word, try again");
+        }
+      })
+  }
+  
   const showPlayers = () => {
     console.log(currentPlayers);
     console.log(justPlayed);
-  }
-
-  const checkWord = () => {
-    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${inputText}`)
-      .then(response => response.json())
-      .then(data => console.log(data))
   }
 
   return (
@@ -116,6 +125,7 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
     <input type="text" onChange={handleInputChange} />
     <button onClick={checkWord}>check word</button>
     <button onClick={showPlayers}>show current players</button>
+    <button onClick={assembleWord}>assemble word</button>
     <div className="players-coontainer">
     <CurrentPlayers />
     </div>
