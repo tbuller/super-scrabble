@@ -13,6 +13,7 @@ import { removeBadWord } from '../../redux/squaresSlice';
 import Board from './Board';
 import CurrentPlayers from './CurrentPlayers';
 import LetterCollection from '../Letters/LetterCollection';
+import ScoreBoard from './ScoreBoard';
 import '../../styling/GamePage.scss';
 
 interface GamePageProps {
@@ -149,7 +150,7 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
   }
   
   const showPlayers = () => {
-    console.log(currentPlayers[0].currentScore);
+    console.log(currentPlayers);
     console.log(justPlayed);
     console.log(allPlayedSquares);
   }
@@ -162,7 +163,8 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
     <button onClick={checkWord}>check word</button>
     <button onClick={showPlayers}>show current players</button>
     <button onClick={assembleWord}>assemble word</button>
-    <div className="players-coontainer">
+    <ScoreBoard />
+    <div className="players-container">
     <CurrentPlayers />
     </div>
     <div className="board-container">
