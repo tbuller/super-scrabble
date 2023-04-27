@@ -14,6 +14,7 @@ import Board from './Board';
 import CurrentPlayers from './CurrentPlayers';
 import LetterCollection from '../Letters/LetterCollection';
 import ScoreBoard from './ScoreBoard';
+import ErrorWarning from './ErrorWarning';
 import '../../styling/GamePage.scss';
 
 interface GamePageProps {
@@ -179,6 +180,7 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
     <CurrentPlayers />
     </div>
     <div className="board-container">
+    <ErrorWarning />
     <Board />
     </div>
     <div>
