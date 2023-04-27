@@ -35,14 +35,17 @@ const LetterCollection = () => {
 
   useEffect(() => {
     const currentTurnIndex = currentPlayers.findIndex(p => p._id === currentTurn?._id);
-    let relevantPlayer = {};
+    let relevantPlayer: any = {};
     if (currentTurnIndex === 0) {
-      relevantPlayer = currentPlayers[-1];
+      relevantPlayer = currentPlayers[currentPlayers.length - 1];
     } else {
       relevantPlayer = currentPlayers[currentTurnIndex - 1];
     }
     
-    console.log(relevantPlayer);
+    const lettersRemaining = relevantPlayer?.letters?.length;
+    for (let i = lettersRemaining; i < 7; i++) {
+      handleAddLetter(relevantPlayer._id, letters);
+    }
   }, [currentTurn])
 
   useEffect(() => {
@@ -57,7 +60,6 @@ const LetterCollection = () => {
 
       setInitialLetters(newInitialLetters);
       setInitialLettersLoaded(true);
-      console.log(initialLetters);
     } else {
       console.log("letters and or players aren't ready yet");
     }
