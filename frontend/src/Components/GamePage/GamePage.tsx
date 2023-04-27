@@ -32,6 +32,7 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
 
   const [inputText, setInputText] = useState("");
   const [errorMade, setErrorMade] = useState(false);
+  const [wrongWord, setWrongWord] = useState("");
 
   useEffect(() => {
     dispatch(setInitialTurn(currentPlayers[0]));
@@ -155,6 +156,8 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
         if (data[0]?.word) {
           return true;
         } else {
+          setErrorMade(true);
+          setWrongWord(wordToCheck);
           return false;
         }
       })
@@ -180,7 +183,7 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
     <CurrentPlayers />
     </div>
     <div className="board-container">
-    <ErrorWarning />
+    {errorMade && <ErrorWarning wrongWord={wrongWord} />}
     <Board />
     </div>
     <div>
