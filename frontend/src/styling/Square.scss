@@ -49,5 +49,5 @@
 .middle-square {
   @extend .square;
   @include selected-letter;
-  background-color: black;
+  background-color: rgb(193, 31, 31);
 }

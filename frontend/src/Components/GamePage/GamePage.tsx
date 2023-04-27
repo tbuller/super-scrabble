@@ -27,6 +27,7 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
   const currentTurn = useSelector((state: RootStateUsers) => state.users.currentTurn);
   const justPlayed = useSelector((state: RootStateLetters) => state.letters.justPlayed);
   const allPlayedSquares = useSelector((state: RootStateSquares) => [...state.squares.playedSquaresIndicesLetter].sort((a: any, b: any) => a.index - b.index));
+  const letters = useSelector((state: RootStateLetters) => state.letters.letters);
 
   const [inputText, setInputText] = useState("");
   const [errorMade, setErrorMade] = useState(false);
@@ -43,6 +44,15 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
       dispatch(addPlayerScore({ userId: currentTurn?._id, points: letter.letter.value }));
     })
   }
+
+  // const replaceLetters = () => {
+  //   const lettersLeft = currentTurn?.letters.length;
+  //   if (lettersLeft && lettersLeft < 7) {
+  //     for (let i = lettersLeft; i < 7; i++) {
+
+  //     }
+  //   }
+  // }
 
   const handleNextTurn = async () => {
     checkWord().then(isValid => {
@@ -153,6 +163,7 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
     console.log(currentPlayers);
     console.log(justPlayed);
     console.log(allPlayedSquares);
+    // replaceLetters();
   }
 
   return (

@@ -11,7 +11,7 @@ const ScoreBoard = () => {
   return (
     <div className="score-board-container">
     {currentPlayers && currentPlayers.map(p =>
-      <div className="individual-player-container">
+      <div className="individual-player-container" key={p._id}>
       <div>{p.username}</div>  
       <div>{p.currentScore}</div>
       </div>

@@ -24,7 +24,7 @@ const Players = () => {
     {users.map(u =>
       <div className="player-icon-container" key={u._id}>
       <div className={`player-icon${currentPlayers.find(p => p._id === u._id) ? ' selected' : ''}`} key={u._id} onClick={() => addPlayer(u)}>
-        {u.username?.[0].toUpperCase()}
+        {u.username[0].toUpperCase()}
         <div className="popup">{u.username}</div>
       </div>
       </div>

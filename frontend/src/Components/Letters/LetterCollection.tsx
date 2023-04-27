@@ -34,6 +34,18 @@ const LetterCollection = () => {
   }, [])
 
   useEffect(() => {
+    const currentTurnIndex = currentPlayers.findIndex(p => p._id === currentTurn?._id);
+    let relevantPlayer = {};
+    if (currentTurnIndex === 0) {
+      relevantPlayer = currentPlayers[-1];
+    } else {
+      relevantPlayer = currentPlayers[currentTurnIndex - 1];
+    }
+    
+    console.log(relevantPlayer);
+  }, [currentTurn])
+
+  useEffect(() => {
     if (letters.length > 0 && currentPlayers) {
       const numLettersToAdd = currentPlayers.length * 7;
       let newInitialLetters: any[] = [];
