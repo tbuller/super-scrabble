@@ -1,3 +1,26 @@
 .board-container {
   
 }
+
+.error-warning-component-container {
+  display: inline-block;
+}
+
+.close-error-warning {
+  position: absolute;
+  top: 39%;
+  right: 34.9%;
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+  z-index: 5;
+  font-size: 1.5em;
+  border-style: solid;
+  border-color: rgb(200, 39, 39);
+  border-width: 0.15em;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgb(200, 39, 39);
+  }
+}

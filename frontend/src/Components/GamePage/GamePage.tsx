@@ -162,12 +162,15 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
         }
       })
   }
+
+  const closeErrorWarning = () => {
+    setErrorMade(false);
+  }
   
   const showPlayers = () => {
     console.log(currentPlayers);
     console.log(justPlayed);
     console.log(allPlayedSquares);
-    // replaceLetters();
   }
 
   return (
@@ -183,7 +186,13 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
     <CurrentPlayers />
     </div>
     <div className="board-container">
-    {errorMade && <ErrorWarning wrongWord={wrongWord} />}
+    {
+    errorMade &&
+    <div className="error-warning-component-container">
+    <button className="close-error-warning" onClick={closeErrorWarning}>X</button>   
+    <ErrorWarning wrongWord={wrongWord} />
+    </div>
+    }
     <Board />
     </div>
     <div>
