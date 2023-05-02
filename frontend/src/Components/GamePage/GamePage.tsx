@@ -10,6 +10,8 @@ import { RootStateLetters } from '../../redux/lettersSlice';
 import { addWord } from '../../redux/wordsSlice';
 import { RootStateSquares } from '../../redux/squaresSlice';
 import { removeBadWord } from '../../redux/squaresSlice';
+import { RootStateGame } from '../../redux/gameSlice';
+import { endGame } from '../../redux/gameSlice';
 import Board from './Board';
 import CurrentPlayers from './CurrentPlayers';
 import LetterCollection from '../Letters/LetterCollection';
@@ -29,6 +31,7 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
   const justPlayed = useSelector((state: RootStateLetters) => state.letters.justPlayed);
   const allPlayedSquares = useSelector((state: RootStateSquares) => [...state.squares.playedSquaresIndicesLetter].sort((a: any, b: any) => a.index - b.index));
   const letters = useSelector((state: RootStateLetters) => state.letters.letters);
+  const gameEnded = useSelector((state: RootStateGame) => state.game.gameEnded);
 
   const [inputText, setInputText] = useState("");
   const [errorMade, setErrorMade] = useState(false);
@@ -46,15 +49,6 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
       dispatch(addPlayerScore({ userId: currentTurn?._id, points: letter.letter.value }));
     })
   }
-
-  // const replaceLetters = () => {
-  //   const lettersLeft = currentTurn?.letters.length;
-  //   if (lettersLeft && lettersLeft < 7) {
-  //     for (let i = lettersLeft; i < 7; i++) {
-
-  //     }
-  //   }
-  // }
 
   const handleNextTurn = async () => {
     checkWord().then(isValid => {
@@ -76,6 +70,13 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
         dispatch(emptyJustPlayed([]));
       }
     });
+    let lettersRemaining = 0;
+    letters.forEach(letter => lettersRemaining += letter.count);
+    console.log(lettersRemaining);
+    if (lettersRemaining <= 0) {
+      console.log("game has ended");
+      dispatch(endGame({}));
+    }
   }
 
   const indexToRowColumn = (index: number) => {
@@ -175,7 +176,7 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
 
   return (
     <div>
-    <div>Game page</div>
+    <h1>Game page</h1>
     <button onClick={handleNextTurn}>Next turn</button>
     <input type="text" onChange={handleInputChange} />
     <button onClick={checkWord}>check word</button>

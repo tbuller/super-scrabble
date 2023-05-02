@@ -3,13 +3,15 @@ import usersReducer from './usersSlice';
 import lettersReducer from './lettersSlice';
 import squaresReducer from './squaresSlice';
 import wordsReducer from './wordsSlice';
+import gameReducer from './gameSlice';
 
 const store = configureStore({
   reducer: {
     users: usersReducer,
     letters: lettersReducer,
     words: wordsReducer,
-    squares: squaresReducer
+    squares: squaresReducer,
+    game: gameReducer
   }
 });
 
