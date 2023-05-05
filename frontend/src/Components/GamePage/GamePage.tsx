@@ -17,6 +17,7 @@ import CurrentPlayers from './CurrentPlayers';
 import LetterCollection from '../Letters/LetterCollection';
 import ScoreBoard from './ScoreBoard';
 import ErrorWarning from './ErrorWarning';
+import GameEnded from './GameEnded';
 import '../../styling/GamePage.scss';
 
 interface GamePageProps {
@@ -176,7 +177,9 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
 
   return (
     <div>
-    <h1>Game page</h1>
+    {!gameEnded &&
+    <>
+     <h1>Game page</h1>
     <button onClick={handleNextTurn}>Next turn</button>
     <input type="text" onChange={handleInputChange} />
     <button onClick={checkWord}>check word</button>
@@ -199,6 +202,13 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
     <div>
     <LetterCollection />
     </div>
+    </>
+    }
+    {gameEnded &&
+      <div className="game-ended-wrapper">
+        <GameEnded />
+      </div>
+    }
     </div>
   )
 }
