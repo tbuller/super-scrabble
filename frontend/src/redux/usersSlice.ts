@@ -15,6 +15,7 @@ export type User = {
   password: string;
   letters: LetterWithUniqueId[];
   currentScore: number;
+  results: string[];
 }
 
 type UsersState = {
@@ -41,6 +42,13 @@ const usersSlice = createSlice({
     },
     addCurrentPlayer: (state, action: PayloadAction<User>) => {
       state.currentPlayers.push({...action.payload, currentScore: 0});
+    },
+    updatePlayer: (state, action) => {
+      const playerIndex = state.currentPlayers.findIndex(player => player._id === action.payload._id);
+
+      if (playerIndex !== -1) {
+        state.currentPlayers[playerIndex] = action.payload;
+      }
     },
     setInitialTurn: (state, action) => {
       state.currentTurn = action.payload;
@@ -87,7 +95,7 @@ const usersSlice = createSlice({
 })
 
 export default usersSlice.reducer;
-export const { setUsers, addUser, addCurrentPlayer, setInitialTurn, setNextTurn, addInitialPlayerLetters, addLetter, removeLetter, addPlayerScore } = usersSlice.actions;
+export const { setUsers, addUser, addCurrentPlayer, updatePlayer, setInitialTurn, setNextTurn, addInitialPlayerLetters, addLetter, removeLetter, addPlayerScore } = usersSlice.actions;
 
 export type RootStateUsers = {
   users: UsersState;

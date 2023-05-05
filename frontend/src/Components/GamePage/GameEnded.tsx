@@ -1,12 +1,14 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootStateUsers } from '../../redux/usersSlice';
+import { updatePlayer } from '../../redux/usersSlice';
 import { RootStateGame } from '../../redux/gameSlice';
 import '../../styling/GameEnded.scss';
 
 const GameEnded = () => {
 
+  const dispatch = useDispatch();
   const currentPlayers = useSelector((state: RootStateUsers) => state.users.currentPlayers);
   const gameEnded = useSelector((state: RootStateGame) => state.game.gameEnded);
 
@@ -32,7 +34,9 @@ const GameEnded = () => {
           body: JSON.stringify({ userId: player._id, result: result })
         })
           .then(response => response.json())
-          .then(data => console.log(data))
+          .then(data => {
+            dispatch(updatePlayer(data.user));
+          })
       })
     }
   }, [sortedResults])
