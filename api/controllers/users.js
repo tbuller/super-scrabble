@@ -19,6 +19,16 @@ const UsersController = {
         res.status(200).json({ message: "OK", users: users });
       }
     })
+  },
+  AddResult: (req, res, next) => {
+    const { userId, result } = req.body;
+    User.findOneAndUpdate({ _id: userId }, { $push: { results: result } }, { new: true }, (err, user) => {
+      if (err) {
+        res.status(500).json({ message: "Bad request", err: err });
+      } else {
+        res.status(200).json({ message: "OK", user: user });
+      }
+    })
   }
 }
 

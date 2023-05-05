@@ -2,10 +2,13 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootStateUsers } from '../../redux/usersSlice';
+import { RootStateGame } from '../../redux/gameSlice';
+import '../../styling/GameEnded.scss';
 
 const GameEnded = () => {
 
   const currentPlayers = useSelector((state: RootStateUsers) => state.users.currentPlayers);
+  const gameEnded = useSelector((state: RootStateGame) => state.game.gameEnded);
 
   const [sortedResults, setSortedResults] = useState(currentPlayers);
 
@@ -14,11 +17,35 @@ const GameEnded = () => {
     setSortedResults(sorted);
   }, [])
 
+  useEffect(() => {
+    if (gameEnded && sortedResults.length > 1) {
+      sortedResults.map((player: any, index) => {
+        let result = "L";
+        if (index === 0) {
+          result = "W";
+        }
+        fetch("http://localhost:8080/users", {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ userId: player._id, result: result })
+        })
+          .then(response => response.json())
+          .then(data => console.log(data))
+      })
+    }
+  }, [sortedResults])
+
   return (
     <div className="ended-game-container">
       <h1 className="ended-game-greeting">Game ended, thank you for playing</h1>
       {sortedResults && sortedResults.map((player: any, index) =>
-        <div>#{index + 1}</div>  
+        <span className="ended-individual-player-container" key={player._id}>
+        <div className="player-poistion-ended">#{index + 1}</div>
+        <div className="player-username-ended">{player.username}</div>  
+        <div className="player-score-ended">{player.currentScore} points</div>
+        </span>
         )}  
     </div>
   )
