@@ -30,7 +30,6 @@ const Players = () => {
       </div>
     )} 
     <button onClick={showUsers}>bug fixing button</button> 
-    <a href="https://github.com/tbuller/all-purpose-organiser">all-purpose-organiser</a>
     </div>
   )
 }
