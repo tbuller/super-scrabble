@@ -43,6 +43,9 @@ const usersSlice = createSlice({
     addCurrentPlayer: (state, action: PayloadAction<User>) => {
       state.currentPlayers.push({...action.payload, currentScore: 0});
     },
+    removeCurrentPlater: (state, action: PayloadAction<User>) => {
+      state.currentPlayers = state.currentPlayers.filter(player => player._id !== action.payload._id)
+    },
     updatePlayer: (state, action) => {
       const playerIndex = state.currentPlayers.findIndex(player => player._id === action.payload._id);
 
@@ -95,7 +98,7 @@ const usersSlice = createSlice({
 })
 
 export default usersSlice.reducer;
-export const { setUsers, addUser, addCurrentPlayer, updatePlayer, setInitialTurn, setNextTurn, addInitialPlayerLetters, addLetter, removeLetter, addPlayerScore } = usersSlice.actions;
+export const { setUsers, addUser, addCurrentPlayer, removeCurrentPlater, updatePlayer, setInitialTurn, setNextTurn, addInitialPlayerLetters, addLetter, removeLetter, addPlayerScore } = usersSlice.actions;
 
 export type RootStateUsers = {
   users: UsersState;

@@ -20,7 +20,7 @@ const Players = () => {
 
   return (
     <div className="players-page-container">
-      <button onClick={() => setShowLeaderBoard(!showLeaderBoard)}>{showLeaderBoard ? "Back" : "Leader Board"}</button>
+      <button className="show-leaderboard-button" onClick={() => setShowLeaderBoard(!showLeaderBoard)}>{showLeaderBoard ? "Back" : "Leader Board"}</button>
       {showLeaderBoard && <LeaderBoard />}
     {!showLeaderBoard && 
     <div className="players-icons-container">
