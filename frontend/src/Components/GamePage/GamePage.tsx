@@ -176,16 +176,14 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
   }
 
   return (
-    <div>
+    <div className="game-page-container">
     {!gameEnded &&
     <>
-     <h1>Game page</h1>
-    <button onClick={handleNextTurn}>Next turn</button>
-    <input type="text" onChange={handleInputChange} />
-    <button onClick={checkWord}>check word</button>
-    <button onClick={showPlayers}>show current players</button>
-    <button onClick={assembleWord}>assemble word</button>
+    <h1 className="game-page-greeting">Game page</h1>
+    <div className="game-controls">
+    <button className="next-turn-button" onClick={handleNextTurn}>Next turn</button>
     <ScoreBoard />
+    </div>
     <div className="players-container">
     <CurrentPlayers />
     </div>
@@ -199,7 +197,7 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
     }
     <Board />
     </div>
-    <div>
+    <div className="letter-collection-wrapper">
     <LetterCollection />
     </div>
     </>

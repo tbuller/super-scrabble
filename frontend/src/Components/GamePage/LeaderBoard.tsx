@@ -37,8 +37,8 @@ const LeaderBoard = () => {
         <span className="leaderboard-individual-user-container" key={user._id}>
           <div className="leaderboard-ranking">#{index + 1}</div>
           <div className="leaderboard-username">{user.username}</div>
-          <div className="leaderboard-wins">{countWins(user.results)} wins</div>
-          <div className="leaderboard-losses">{countLosses(user.results)} losses</div>
+          <div className="leaderboard-wins">{countWins(user.results)} {countWins(user.results) === 1 ? "win" : "wins"}</div>
+          <div className="leaderboard-losses">{countLosses(user.results)} {countLosses(user.results) === 1 ? "loss" : "losses"}</div>
           <div className="leaderboard-win-rate">{((countWins(user.results) / user.results.length) * 100) || 0} %</div>
         </span>
         )}

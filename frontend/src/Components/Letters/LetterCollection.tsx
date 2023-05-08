@@ -19,7 +19,6 @@ const LetterCollection = () => {
 
   const dispatch = useDispatch();
   const letters = useSelector((state: RootStateLetters) => state.letters.letters);
-  const selectedLetter = useSelector((state: RootStateLetters) => state.letters.selectedLetter);
   const currentPlayers = useSelector((state: RootStateUsers) => state.users.currentPlayers);
   const currentTurn = useSelector((state: RootStateUsers) => state.users.currentTurn); 
 
@@ -128,21 +127,19 @@ return (
     currentPlayers.map((p) => {
       return (
         <div className="individual-player-letters-container" key={p._id}>
-          <div className="username-letter-container">{p.username}</div>
+          <div className={`username-letter-container${p._id === currentTurn?._id ? " selected" : ""}`}>{p.username}</div>
+          <div className="individual-user-letters-container">
           {p.letters?.map((l) => (
             <div key={Math.random()}>
               <Letter letter={l} associatedPlayer={p} />
             </div>
           ))}
+          </div>
         </div>
       );
     })}
       </div>
     </div>
-    <button onClick={showLetters}>show letters</button>
-    <button onClick={() => handleAddLetter(currentPlayers[0]._id, letters)}>
-      random
-    </button>
   </div>
 );
 }

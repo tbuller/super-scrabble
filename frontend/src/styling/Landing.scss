@@ -12,7 +12,9 @@ body.landing-container-gray {
 .landing-welcome {
   font-size: 2.5em;
   margin-bottom: 1em;
-  color: #333;
+  color: #222;
+  font-weight: bold;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .buttons-container {
@@ -32,10 +34,11 @@ body.landing-container-gray {
   border: none;
   cursor: pointer;
   width: 14em;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, box-shadow 0.3s;
 
   &:hover {
     background-color: #3f8f42;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -46,3 +49,4 @@ body.landing-container-gray {
 .buttons-container .start-game-button {
   display: block;
 }
+

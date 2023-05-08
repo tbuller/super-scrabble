@@ -4,5 +4,21 @@
 }
 
 .individual-player-letters-container {
+  margin: 0.5em;
+  border-radius: 0.5em;
+}
+
+.username-letter-container {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-left: 0.4em;
+
+  &.selected {
+    color: red;
+  }
+}
+
+.individual-user-letters-container {
   display: flex;
+  flex-wrap: nowrap;
 }
