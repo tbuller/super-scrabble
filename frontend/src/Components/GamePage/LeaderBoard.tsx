@@ -27,10 +27,11 @@ const LeaderBoard = () => {
     <div className="leaderboard-container">
       {sortedPlayers.map((player, index) =>
         <span className="leaderboard-individual-player-container">
-          <div>#{index + 1}</div>
-          <div>{player.username}</div>
-          <div>{countWins(player.results)} wins</div>
-          <div>{countLosses(player.results)} losses</div>
+          <div className="leaderboard-ranking">#{index + 1}</div>
+          <div className="leaderboard-username">{player.username}</div>
+          <div className="leaderboard-wins">{countWins(player.results)} wins</div>
+          <div className="leaderboard-losses">{countLosses(player.results)} losses</div>
+          <div className="leaderboard-win-rate">{(countWins(player.results) / player.results.length) * 100} %</div>
         </span>
         )}
     </div>

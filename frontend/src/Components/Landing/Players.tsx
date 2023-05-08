@@ -1,7 +1,9 @@
 import React from 'react';
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { User, RootStateUsers } from '../../redux/usersSlice';
 import { addCurrentPlayer } from '../../redux/usersSlice';
+import LeaderBoard from '../GamePage/LeaderBoard';
 import '../../styling/Players.scss';
 
 const Players = () => {
@@ -14,11 +16,6 @@ const Players = () => {
     dispatch(addCurrentPlayer(player));
   }
 
-  const showUsers = () => {
-    console.log(users);
-    console.log(currentPlayers);
-  }
-
   return (
     <div className="players-icons-container">
     {users.map(u =>
@@ -29,7 +26,6 @@ const Players = () => {
       </div>
       </div>
     )} 
-    <button onClick={showUsers}>bug fixing button</button> 
     </div>
   )
 }
