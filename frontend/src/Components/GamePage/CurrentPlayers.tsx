@@ -14,7 +14,7 @@ const CurrentPlayers = () => {
       {currentPlayers.map(p =>
         <div className="individual-current-player-conatainer" key={p._id}>
         {p._id === currentTurn?._id && <AiOutlineArrowDown className="turn-indicator-arrow" />} 
-        <div className="current-player-icon" key={p._id}>{p.username[0].toUpperCase()}</div>
+        <div className={`current-player-icon${p._id === currentTurn?._id ? " selected" : ""}`} key={p._id}>{p.username[0].toUpperCase()}</div>
         </div>
         )}
     </div>

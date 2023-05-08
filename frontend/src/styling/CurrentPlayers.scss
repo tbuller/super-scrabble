@@ -12,6 +12,7 @@
   padding-left: 1.4em;
   padding-top: 0.9em;
   border-radius: 0.5em;
+  font-weight: bold;
   transition: transform 0.3s ease;
   
   &:hover {
@@ -21,10 +22,6 @@
   &.selected {
     background-color: green !important;
   }
-}
-
-.individual-current-player-container {
-  
 }
 
 .turn-indicator-arrow {

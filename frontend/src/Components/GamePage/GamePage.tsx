@@ -179,7 +179,7 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
     <div className="game-page-container">
     {!gameEnded &&
     <>
-    <h1 className="game-page-greeting">Game page</h1>
+    <h1 className="game-page-greeting">super-scrabble</h1>
     <div className="game-controls">
     <button className="next-turn-button" onClick={handleNextTurn}>Next turn</button>
     <ScoreBoard />
