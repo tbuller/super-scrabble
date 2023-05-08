@@ -46,7 +46,7 @@ const NewPlayer = () => {
 
   return (
     <div className="new-player-container">
-    <h2>New player</h2>
+    <h2 className="new-player-title">New player</h2>
     <div className="line-container">
     <label className="new-player-label">Please choose a username:</label>
     <input className="new-player-username" type="text" onChange={handleUsername} />
@@ -59,8 +59,12 @@ const NewPlayer = () => {
     <label className="new-player-label">Please confirm your password:</label>
     <input className="new-player-password" type="password" onChange={handleConfirmedPassword} />
     </div>
-    <button onClick={createUser}>Add player</button>
-    {notMatching && <div className="non-matching-passwords-prompt">Make sure you are entering the same password in both fields</div>}
+    <button className="add-player-button" onClick={createUser}>Add player</button>
+    {notMatching && 
+    <div className="non-matching-passwords-prompt">
+      Make sure you are entering the same password in both fields
+      <button className="close-not-matching-passwords-button" onClick={() => setNotMatching(false)}>X</button>
+    </div>}
     </div>
   )
 }

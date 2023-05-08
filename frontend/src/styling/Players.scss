@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 80%;
   padding: 1em;
 }
 
@@ -13,6 +14,7 @@
   border-radius: 0.3125rem;
   font-size: 1rem;
   cursor: pointer;
+  width: 10em;
   margin-bottom: 1em;
 
   &:hover {
@@ -53,13 +55,15 @@
   display: none;
   position: absolute;
   background-color: white;
-  border: 0.0625rem solid #ccc;
-  border-radius: 0.3125rem;
-  padding: 0.625rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.5em;
   z-index: 1;
   left: 50%;
   top: 100%;
-  transform: translate(-50%, 0.625rem);
+  transform: translate(-50%, 0.5em);
+  white-space: nowrap;
+  color: #333;
 }
 
 .player-icon:hover .popup {

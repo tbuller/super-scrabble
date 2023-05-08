@@ -40,12 +40,14 @@ const Landing: React.FC<LandingProps> = ({ navigate }) => {
   }
 
   return (
-    <div>
-    <h1>Welcome to Super Scrabble!</h1>
-    <button onClick={handleNewPlayerPopup}>{popup ? "Close new player window" : "Create new player"}</button>
+    <div className="landing-page-container">
+    <h1 className="landing-welcome">Welcome to Super Scrabble!</h1>
+    <div className="buttons-container">
+    <button className="new-player-button" onClick={handleNewPlayerPopup}>{popup ? "Close new player window" : "Create new player"}</button>
+    {currentPlayers.length >= 2 && <button className="start-game-button" onClick={() => navigate("/play")}>Start game</button>}
+    </div>
     <Players />
     {popup && <NewPlayer />}
-    {currentPlayers.length >= 2 && <button className="start-game-button" onClick={() => navigate("/play")}>start game</button>}
     </div>
   )
 }

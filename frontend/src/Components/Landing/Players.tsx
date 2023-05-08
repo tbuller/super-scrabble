@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { User, RootStateUsers } from '../../redux/usersSlice';
-import { addCurrentPlayer } from '../../redux/usersSlice';
+import { addCurrentPlayer, removeCurrentPlater } from '../../redux/usersSlice';
 import LeaderBoard from '../GamePage/LeaderBoard';
 import '../../styling/Players.scss';
 
@@ -15,12 +15,16 @@ const Players = () => {
   const [showLeaderBoard, setShowLeaderBoard] = useState(false);
 
   const addPlayer = (player: User) => {
-    dispatch(addCurrentPlayer(player));
+    if (currentPlayers.find(p => p._id === player._id)) {
+      dispatch(removeCurrentPlater(player));
+    } else {
+      dispatch(addCurrentPlayer(player));
+    }
   }
 
   return (
     <div className="players-page-container">
-      <button className="show-leaderboard-button" onClick={() => setShowLeaderBoard(!showLeaderBoard)}>{showLeaderBoard ? "Back" : "Leader Board"}</button>
+      <button className="show-leaderboard-button" onClick={() => setShowLeaderBoard(!showLeaderBoard)}>{showLeaderBoard ? "Player Selection" : "Leader Board"}</button>
       {showLeaderBoard && <LeaderBoard />}
     {!showLeaderBoard && 
     <div className="players-icons-container">
