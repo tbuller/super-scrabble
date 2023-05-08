@@ -38,8 +38,8 @@
   z-index: 5;
   font-size: 1.5em;
   border-style: solid;
-  border-color: rgb(200, 39, 39);
-  border-width: 0.15em;
+  border: none;
+  border-radius: 0.5em;
 
   &:hover {
     cursor: pointer;
