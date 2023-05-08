@@ -38,6 +38,12 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
   const [errorMade, setErrorMade] = useState(false);
   const [wrongWord, setWrongWord] = useState("");
 
+  const tripleWordIndices = [0, 7, 14, 105, 119, 210, 217, 224];
+  const doubleWordIndices = [16, 28, 32, 42, 48, 56, 64, 70, 154, 160, 168, 176, 182, 192, 196, 208];
+  const tripleLetterIndices = [76, 80, 84, 88, 136, 140, 144, 148];
+  const doubleLetterIndices = [3, 11, 45, 59, 92, 96, 98, 102, 108, 116, 122, 126, 128, 132, 165, 179, 213, 221];
+  const middleIndex = 112;
+
   useEffect(() => {
     dispatch(setInitialTurn(currentPlayers[0]));
   }, [currentPlayers.length])
@@ -45,11 +51,33 @@ const GamePage: React.FC<GamePageProps> = ({ navigate }) => {
   const calculateScoreToAdd = () => {
     const wordIndices = assembleWord();
     const lettersToCount = allPlayedSquares.filter((square: any) => wordIndices.includes(square.index)).map((square: any) => square);
+  
+    let wordMultiplier = 1;
+    let totalScore = 0;
+  
     lettersToCount.forEach(letter => {
-      console.log(letter);
-      dispatch(addPlayerScore({ userId: currentTurn?._id, points: letter.letter.value }));
-    })
+      let letterScore = letter.letter.value;
+      const squareIndex = letter.index;
+  
+      if (tripleLetterIndices.includes(squareIndex)) {
+        letterScore *= 3;
+      } else if (doubleLetterIndices.includes(squareIndex)) {
+        letterScore *= 2;
+      }
+  
+      if (tripleWordIndices.includes(squareIndex)) {
+        wordMultiplier *= 3;
+      } else if (doubleWordIndices.includes(squareIndex)) {
+        wordMultiplier *= 2;
+      }
+  
+      totalScore += letterScore;
+    });
+  
+    totalScore *= wordMultiplier;
+    dispatch(addPlayerScore({ userId: currentTurn?._id, points: totalScore }));
   }
+  
 
   const handleNextTurn = async () => {
     checkWord().then(isValid => {

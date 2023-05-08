@@ -60,16 +60,24 @@ const Square: React.FC<SquareProps> = ({ index }) => {
       dispatch(addPlayedSquare({ index: index, letter: selectedLetter }));
       dispatch(removeLetter(selectedLetter));
       dispatch(unsetSelectedLetter({}));
-      console.log(currentPlayers[0].letters);
-      console.log(selectedLetter);
-      console.log(justPlayed);
     } else {
       console.log(selectedLetter);
     }
   }
 
   return (
-    <div className={`${squareType}${selectedLetter.value ? " selected-letter" : ""}`} onClick={handleSetSelectedSquareIndex}>{(squareLetter as any)?.letter.value ? (squareLetter as any).letter.letter : squareText}</div>
+    <div className={`${squareType}${selectedLetter.value ? " selected-letter" : ""}`} onClick={handleSetSelectedSquareIndex}>
+      {(squareLetter as any)?.letter.value ? 
+      <div className="played-letter-container">
+      <div className="played-square-content">
+      <div className="square-letter-character">{(squareLetter as any)?.letter.value ? (squareLetter as any).letter.letter : null}</div>
+      <div className="square-letter-value">{(squareLetter as any)?.letter.value ? (squareLetter as any).letter.value : null}</div>
+      </div>
+      </div>
+      :
+      <div>{squareText}</div>
+      }
+    </div>
   )
 }
 
