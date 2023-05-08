@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { User, RootStateUsers } from '../../redux/usersSlice';
 import { addCurrentPlayer } from '../../redux/usersSlice';
@@ -12,11 +12,17 @@ const Players = () => {
   const users = useSelector((state: RootStateUsers) => state.users.users);
   const currentPlayers = useSelector((state: RootStateUsers) => state.users.currentPlayers);
 
+  const [showLeaderBoard, setShowLeaderBoard] = useState(false);
+
   const addPlayer = (player: User) => {
     dispatch(addCurrentPlayer(player));
   }
 
   return (
+    <div className="players-page-container">
+      <button onClick={() => setShowLeaderBoard(!showLeaderBoard)}>{showLeaderBoard ? "Back" : "Leader Board"}</button>
+      {showLeaderBoard && <LeaderBoard />}
+    {!showLeaderBoard && 
     <div className="players-icons-container">
     {users.map(u =>
       <div className="player-icon-container" key={u._id}>
@@ -26,6 +32,8 @@ const Players = () => {
       </div>
       </div>
     )} 
+    </div>
+    }
     </div>
   )
 }

@@ -5,9 +5,9 @@ import { RootStateUsers } from '../../redux/usersSlice';
 
 const LeaderBoard = () => {
 
-  const currentPlayers = useSelector((state: RootStateUsers) => state.users.currentPlayers);
+  const users = useSelector((state: RootStateUsers) => state.users.users);
 
-  const [sortedPlayers, setSortedPlayers] = useState(currentPlayers);
+  const [sortedUsers, setSortedUsers] = useState(users);
 
   const countWins = (results: string[]): number => {
     return results.reduce((count, result) => (result === 'W' ? count + 1 : count), 0);
@@ -18,20 +18,20 @@ const LeaderBoard = () => {
   }
 
   useEffect(() => {
-    const sorted = currentPlayers.sort((a, b) => countWins(b.results) - countWins(a.results));
+    const sorted = [...users].sort((a, b) => countWins(b.results) - countWins(a.results));
 
-    setSortedPlayers(sorted);
+    setSortedUsers(sorted);
   }, [])
 
   return (
     <div className="leaderboard-container">
-      {sortedPlayers.map((player, index) =>
-        <span className="leaderboard-individual-player-container">
+      {sortedUsers.map((user, index) =>
+        <span className="leaderboard-individual-user-container" key={user._id}>
           <div className="leaderboard-ranking">#{index + 1}</div>
-          <div className="leaderboard-username">{player.username}</div>
-          <div className="leaderboard-wins">{countWins(player.results)} wins</div>
-          <div className="leaderboard-losses">{countLosses(player.results)} losses</div>
-          <div className="leaderboard-win-rate">{(countWins(player.results) / player.results.length) * 100} %</div>
+          <div className="leaderboard-username">{user.username}</div>
+          <div className="leaderboard-wins">{countWins(user.results)} wins</div>
+          <div className="leaderboard-losses">{countLosses(user.results)} losses</div>
+          <div className="leaderboard-win-rate">{(countWins(user.results) / user.results.length) * 100} %</div>
         </span>
         )}
     </div>
