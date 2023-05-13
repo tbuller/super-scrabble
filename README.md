@@ -1,6 +1,6 @@
 # super-scrabble
 
-A multi-player digital version of scrabble. Built with the React framwork, using Redux and TypeScript, and Node.js with Express for the API.
+A multi-player digital version of scrabble. Built with the React framework, using Redux and TypeScript, and Node.js with Express for the API.
 
 # Tech Stack
 
