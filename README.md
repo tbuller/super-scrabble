@@ -1,4 +1,8 @@
-# super-scrabble
+# Super Scrabble
+
+Click on the image below for a quick demo (please excuse the bad quality from YouTube)
+
+[![Demo link](https://img.youtube.com/vi/M4xBb8z2w_w/0.jpg)](https://www.youtube.com/watch?v=M4xBb8z2w_w)
 
 A multi-player digital version of scrabble. Built with the React framework, using Redux and TypeScript, and Node.js with Express for the API.
 
