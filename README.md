@@ -31,7 +31,7 @@ npm start
 ```
 Open another terminal in the same codebase:
 ```
-cd src
+cd frontend
 npm install
 npm start
 ```
