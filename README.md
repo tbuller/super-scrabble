@@ -60,7 +60,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the app in your brow
 <h5 align="center">
 <a href='https://github.com/tbuller/super-scrabble/blob/main/README.md#Home-page'> Home-page </a> <span> · </span>  
 <a href='https://github.com/tbuller/super-scrabble/blob/main/README.md#Game'> Game </a> <span> · </span>
-<a href='https://github.com/tbuller/weatherbook/blob/main/README.md#Game-over'> Game-over </a>
+<a href='https://github.com/tbuller/super-scrabble/blob/main/README.md#Game-over'> Game-over </a>
 <h5>
 </div>
 
