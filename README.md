@@ -66,14 +66,22 @@ Open [http://localhost:3000](http://localhost:3000) to view the app in your brow
 
 ## Home-page
   
+On the home page, users are greeted by a row of user icons. Each icon reveals the corresponding user's username when hovered over. The option to create new users is available through a form that appears upon clicking "Create new player". Users can be selected and deselected from the displayed row by clicking on the relevant icons. Once a minimum of two users have been chosen, the "Start Game" button appears. Additionally, the leaderboard, showcasing all players along with their wins and losses, can be viewed by clicking on the "Leader Board" button. Users can then toggle back to player selection. 
+  
 ![Image](https://github.com/tbuller/super-scrabble/blob/main/frontend/public/README_images/super-scrabble-home-screenshot.png)
 
 ## Game
   
+Each player has a collection of 7 letters to start the game, which is then replenished at the end of each turn so that the player always has 7 letters (until the letters in store run out). Scores are calculated just like in regular Scrabble, with multipliers such as Double Letter, Triple Word etc... A leaderboard in the top right hand corner of the screen shows the running scores of each player. If the player tries to select a letter that is not in their collection, they won't be able to put the letter on the board, and the letter will be highlighted red to warn the user. There are indicators to show who's turn it is, including the highlighted username on the leaderboard.   
+  
 ![Image](https://github.com/tbuller/super-scrabble/blob/main/frontend/public/README_images/super-scrabble-game-page-screenshot.png)
+  
+Each time the player clicks the button "Next turn", a web API call is made to a dictionary with the user's word. If the word is not valid, a warning will appear (as below) and the user will be prompted to come up with a new word or pass their turn. If the word is invalid, the letters that the player attempted to use will be returned to their collection.  
   
 ![Image](https://github.com/tbuller/super-scrabble/blob/main/frontend/public/README_images/super-scrabble-error-screenshot.png)  
 
 ## Game-over
+  
+Finally, at the end of the game (when the letters run out), there is a leaderboard that replaces the game component with the results of the game.  
   
 ![Image](https://github.com/tbuller/super-scrabble/blob/main/frontend/public/README_images/super-scrabble-game-over-screenshot.png)
