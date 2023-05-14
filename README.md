@@ -65,7 +65,15 @@ Open [http://localhost:3000](http://localhost:3000) to view the app in your brow
 </div>
 
 ## Home-page
+  
+![Image](https://github.com/tbuller/super-scrabble/blob/main/frontend/public/README_images/super-scrabble-home-screenshot.png)
 
 ## Game
+  
+![Image](https://github.com/tbuller/super-scrabble/blob/main/frontend/public/README_images/super-scrabble-game-page-screenshot.png)
+  
+![Image](https://github.com/tbuller/super-scrabble/blob/main/frontend/public/README_images/super-scrabble-error-screenshot.png)  
 
 ## Game-over
+  
+![Image](https://github.com/tbuller/super-scrabble/blob/main/frontend/public/README_images/super-scrabble-game-over-screenshot.png)
